@@ -1,0 +1,14 @@
+{
+  "sjabloon": "tekst",
+  "zinnen": [
+    "Dit plan werkt pas als je het durft te schrappen.",
+    "Begin met wat er nu blijft liggen.",
+    "Kies één ding voor deze week.",
+    "De rest kan wachten."
+  ],
+  "merk": {
+    "kleuren": { "achtergrond": "#EFE7DB", "vlak": "#1F3A3D", "accent": "#C8963E", "tekst": "#1E2328" },
+    "lettertype": "Outfit",
+    "afzender": "@jouwbedrijf"
+  }
+}

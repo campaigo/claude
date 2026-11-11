@@ -1,0 +1,3 @@
+Outfit en DM Sans vallen onder de SIL Open Font License 1.1 (zie OFL-Outfit.txt en OFL-DMSans.txt). Er zijn geen Reserved Font Names opgegeven.
+
+De TTF-bestanden zijn vaste gewichten (Bold 700, Medium 500), gemaakt met fontTools uit de variabele lettertypen van Campaigo (app/public/merk/fonts). De .kern.json-bestanden bevatten de kerningparen uit dezelfde lettertypen.

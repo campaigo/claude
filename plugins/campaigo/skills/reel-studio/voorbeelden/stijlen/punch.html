@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Reel</title>
+<link rel="stylesheet" href="/motor/reel.css">
+</head>
+<body>
+<div id="stage"></div>
+<script src="/motor/reel.js"></script>
+<script src="/motor/blokken.js"></script>
+<script src="/voorbeelden/stijlen/stijlen.js"></script>
+<script>
+  // merk: kleuren, lettertype, afzender en logo uit de studio (Campaigo Reels/merk/merk.json)
+  R.merk("/merk/merk.json");
+  // Punch: typografie op de beat. De haak staat er vanaf het eerste beeld. Eén zin mag de klap zijn.
+  R.stijl.punch({
+    haak: "Ons brood rijst *24 uur*.",
+    zinnen: [
+      "Geen haast.",
+      "Geen pakjes.",
+      "Alleen meel, water en tijd.",
+      { tekst: "Dat proef je.", klap: true },
+    ],
+    oproep: { kop: "Kom *proeven*.", sub: "Zaterdag vanaf 7:00 in de Hoofdstraat" },
+  });
+</script>
+</body>
+</html>

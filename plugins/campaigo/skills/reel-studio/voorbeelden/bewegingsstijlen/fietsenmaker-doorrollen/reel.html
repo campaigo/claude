@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Winterbeurt</title><link rel="stylesheet" href="/motor/reel.css"></head>
+<body>
+<div id="stage"></div>
+<script src="/motor/reel.js"></script>
+<script src="/motor/blokken.js"></script>
+<script src="/merk/beweging.js"></script>
+<script>
+  R.merk("/merk/merk.json");
+  VD.reeks({
+    zinnen: [
+      { tekst: "Je fiets winterklaar voor *€49*." },
+      { tekst: "Natte wegen." },
+      { tekst: "Vroeg donker." },
+      { tekst: "Complete winterbeurt." },
+      { tekst: "Alleen t/m 15 december.", klap: true },
+    ],
+    oproep: { kop: "Breng hem *langs*.", sub: "Kerkstraat 8" },
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "campaigo": {
+      "type": "http",
+      "url": "https://campaigo.ai-brouwerij.nl/mcp"
+    }
+  }
+}

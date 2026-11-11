@@ -1,0 +1,15 @@
+{
+  "kleuren": {
+    "achtergrond": "#0f3d3e",
+    "tekst": "#f7f4ec",
+    "accent": "#f2c14e",
+    "licht": "#f7f4ec",
+    "donker": "#0f3d3e",
+    "vlakken": ["#0f3d3e", "#f7f4ec", "#f2c14e", "#e4572e"]
+  },
+  "lettertype": {
+    "naam": "Barlow Condensed",
+    "bestanden": { "800": "fonts/BarlowCondensed-ExtraBold.ttf", "600": "fonts/BarlowCondensed-SemiBold.ttf" }
+  },
+  "afzender": "@fietsmaker.vandam"
+}

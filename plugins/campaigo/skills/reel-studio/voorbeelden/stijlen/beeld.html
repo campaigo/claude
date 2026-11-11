@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Reel</title>
+<link rel="stylesheet" href="/motor/reel.css">
+</head>
+<body>
+<div id="stage"></div>
+<script src="/motor/reel.js"></script>
+<script src="/motor/blokken.js"></script>
+<script src="/voorbeelden/stijlen/stijlen.js"></script>
+<script>
+  // merk: kleuren, lettertype, afzender en logo uit de studio (Campaigo Reels/merk/merk.json)
+  R.merk("/merk/merk.json");
+  // Beeld: eigen foto's of video's van de klant. Het eerste shot draagt de haak.
+  // Een video: { video: { bron: "clips/oven.mp4", start: 2, duur: 4 }, tekst: "..." }
+  R.stijl.beeld({
+    haak: "Zo begint onze *zaterdag*.",
+    shots: [
+      { foto: "fotos/croissants.jpg", focus: [0.5, 0.45] },
+      { foto: "fotos/zuurdesem.jpg", tekst: "Om vier uur gaat de oven aan." },
+      { foto: "fotos/kaneelbroodjes.jpg", tekst: "Kaneelbroodjes, *nog warm*." },
+      { foto: "fotos/appeltaart.jpg", tekst: "En appeltaart van oma's recept." },
+      { foto: "fotos/koffie.jpg", tekst: "Koffie staat klaar." },
+    ],
+    oproep: { kop: "Tot *zaterdag*!", sub: "Hoofdstraat 12, vanaf 7:00" },
+  });
+</script>
+</body>
+</html>

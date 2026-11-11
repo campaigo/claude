@@ -1,0 +1,14 @@
+{
+  "sjabloon": "foto",
+  "foto": "foto.jpg",
+  "focus_y": 0.42,
+  "zinnen": [
+    "Zo begint elke maandag bij ons.",
+    "Koffie, planning en dan pas de mail."
+  ],
+  "merk": {
+    "kleuren": { "vlak": "#1F3A3D", "accent": "#C8963E", "tekst": "#FFFFFF" },
+    "lettertype": "DM Sans",
+    "afzender": "@jouwbedrijf"
+  }
+}

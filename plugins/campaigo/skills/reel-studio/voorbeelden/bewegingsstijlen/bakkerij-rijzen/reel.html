@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Kerststol</title><link rel="stylesheet" href="/motor/reel.css"></head>
+<body>
+<div id="stage"></div>
+<script src="/motor/reel.js"></script>
+<script src="/motor/blokken.js"></script>
+<script src="/merk/beweging.js"></script>
+<script>
+  R.merk("/merk/merk.json");
+  BB.reeks({
+    zinnen: [
+      { tekst: "De kerststol is *terug*." },
+      { tekst: "Met echte amandelspijs." },
+      { tekst: "Drie dagen gerezen." },
+      { tekst: "Op is op.", klap: true },
+    ],
+    oproep: { kop: "Bestel *vandaag*.", sub: "In de winkel of stuur ons een berichtje" },
+  });
+</script>
+</body>
+</html>

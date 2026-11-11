@@ -1,0 +1,15 @@
+{
+  "sjabloon": "lijst",
+  "titel": "Drie dingen die je vandaag kunt doen",
+  "punten": [
+    "Schrap één taak die niemand mist.",
+    "Bel de klant die al een week wacht.",
+    "Plan morgen vóór je naar huis gaat."
+  ],
+  "genummerd": true,
+  "merk": {
+    "kleuren": { "achtergrond": "#EFE7DB", "accent": "#1F3A3D", "tekst": "#1E2328" },
+    "lettertype": "Outfit",
+    "afzender": "@jouwbedrijf"
+  }
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Reel</title>
+<link rel="stylesheet" href="/motor/reel.css">
+</head>
+<body>
+<div id="stage"></div>
+<script src="/motor/reel.js"></script>
+<script src="/motor/blokken.js"></script>
+<script src="/voorbeelden/stijlen/stijlen.js"></script>
+<script>
+  // merk: kleuren, lettertype, afzender en logo uit de studio (Campaigo Reels/merk/merk.json)
+  R.merk("/merk/merk.json");
+  // Wereld: de camera vliegt van kaart naar kaart. Twee tot vijf kaarten; een foto per kaart mag.
+  R.stijl.wereld({
+    haak: { boven: "Bakkerij Bolleboos", kop: "Zo bak je *echt* brood", sub: "in vier stappen" },
+    kaarten: [
+      { boven: "Stap 1", kop: "Voed de *zuurdesem*", tekst: "Elke avond een schep meel en water erbij.", foto: "fotos/zuurdesem.jpg" },
+      { boven: "Stap 2", kop: "Kneed het *rustig*", tekst: "Tien minuten, niet langer. Het deeg doet de rest." },
+      { boven: "Stap 3", kop: "Geef het een *nacht*", tekst: "Koel en langzaam rijzen geeft smaak.", foto: "fotos/kaneelbroodjes.jpg" },
+      { boven: "Stap 4", kop: "Heet de *oven* in", tekst: "Met stoom voor die knapperige korst." },
+    ],
+    oproep: { kop: "Liever *laten bakken*?", sub: "Elke ochtend vers in de Hoofdstraat" },
+  });
+</script>
+</body>
+</html>

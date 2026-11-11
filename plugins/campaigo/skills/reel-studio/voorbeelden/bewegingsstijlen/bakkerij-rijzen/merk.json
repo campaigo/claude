@@ -1,0 +1,5 @@
+{
+  "kleuren": ["#3b2418", "#e0782f", "#f6ead8", "#5d7a4e", "#d9a441"],
+  "lettertype": { "naam": "Fraunces", "bestanden": { "700": "fonts/Fraunces.ttf", "500": "fonts/Fraunces.ttf" } },
+  "afzender": "@bakkerij.bolleboos"
+}

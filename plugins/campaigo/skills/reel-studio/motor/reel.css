@@ -1,0 +1,79 @@
+/* Reel-studio van Campaigo: basisopmaak. Kleuren en lettertype komen uit R.merk() als variabelen. */
+@font-face { font-family: "Outfit"; src: url("/fonts/Outfit-Bold.ttf"); font-weight: 600 900; font-display: block; }
+@font-face { font-family: "Outfit"; src: url("/fonts/Outfit-Medium.ttf"); font-weight: 100 599; font-display: block; }
+@font-face { font-family: "DM Sans"; src: url("/fonts/DMSans-Bold.ttf"); font-weight: 600 900; font-display: block; }
+@font-face { font-family: "DM Sans"; src: url("/fonts/DMSans-Medium.ttf"); font-weight: 100 599; font-display: block; }
+
+:root {
+  --achtergrond: #f4efe6;
+  --tekst: #1e2328;
+  --accent: #e4572e;
+  --licht: #ffffff;
+  --donker: #1e2328;
+  --font: "Outfit", system-ui, sans-serif;
+}
+
+html, body { margin: 0; padding: 0; background: #16161a; }
+body.render { background: transparent; overflow: hidden; }
+
+#stage {
+  position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: var(--achtergrond); color: var(--tekst);
+  font-family: var(--font); font-weight: 700;
+  transform-origin: 0 0;
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+  font-kerning: normal;
+  font-variant-numeric: lining-nums;   /* gewone cijfers: sommige letters tekenen een 1 anders als "ı" */
+}
+#stage * { box-sizing: border-box; }
+
+/* lagen en scènes vullen het hele beeld */
+.scene, .laag { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.vlak { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+
+/* een anker is een punt zonder maat; wat erin staat, staat er gecentreerd op */
+.anker { position: absolute; width: 0; height: 0; }
+.anker > .midden { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); }
+
+/* typografie: zinnen met woorden die uit een masker komen */
+.r-zin { position: absolute; margin: 0; font-weight: 800; line-height: .98; letter-spacing: -.035em; word-spacing: .04em; }
+.r-zin .r-regel { display: block; white-space: nowrap; }
+.r-zin.vrij { white-space: normal; }
+.r-zin .m { display: inline-block; overflow: hidden; vertical-align: top; padding: .16em .08em .26em; margin: -.16em -.08em -.26em; }
+.r-zin .w { display: inline-block; will-change: transform; }
+.nw { white-space: nowrap; }
+.r-zin .hl { position: relative; display: inline-block; z-index: 0; white-space: nowrap; }
+.r-zin .streep { position: absolute; left: 1%; right: -1%; height: .16em; bottom: .02em; border-radius: 100% 40% 70% 40%; background: var(--accent); z-index: -1; transform-origin: left center; transform: rotate(-2deg) scaleX(0); }
+
+/* de stip: de held van de stijl "punch", een punt in de accentkleur */
+.r-stip { position: absolute; border-radius: 50%; background: var(--accent); }
+
+/* labels: tekst in blokjes, leesbaar op elke foto */
+.r-labels { position: absolute; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.r-label { display: inline-block; padding: .12em .32em .16em; line-height: 1.04; font-weight: 800; letter-spacing: -.02em; border-radius: .14em; white-space: nowrap; }
+.r-label .w { display: inline-block; }
+
+/* foto's en video's vullen hun vak */
+.r-beeld { position: absolute; overflow: hidden; }
+.r-beeld > img, .r-beeld > video { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; will-change: transform; }
+
+/* kaarten (stijl "wereld") */
+.r-kaart { position: absolute; width: 940px; border-radius: 56px; padding: 64px 64px 60px; background: var(--licht); color: var(--tekst); box-shadow: 0 40px 120px rgba(0,0,0,.18); }
+.r-kaart .boven { display: flex; justify-content: space-between; align-items: center; font-size: 34px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; opacity: .7; }
+.r-kaart .nr { font-variant-numeric: tabular-nums; color: var(--accent-tekst, var(--accent)); opacity: 1; }
+.r-kaart h2 { margin: 30px 0 0; font-size: 96px; line-height: 1; letter-spacing: -.035em; font-weight: 800; }
+.r-kaart h2 .w { display: inline-block; }
+.r-kaart p { margin: 28px 0 0; font-size: 46px; line-height: 1.22; font-weight: 500; letter-spacing: -.01em; opacity: .86; }
+.r-kaart .r-beeld { position: relative; margin-top: 40px; height: 520px; border-radius: 34px; }
+
+/* korrel over alles: maakt vlakke kleur rijker */
+.r-korrel { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; pointer-events: none; opacity: .07; mix-blend-mode: overlay; }
+
+/* oproep aan het eind */
+.r-afzender { display: inline-flex; align-items: center; gap: 22px; font-size: 52px; font-weight: 700; letter-spacing: -.01em; }
+.r-afzender img { height: 96px; width: auto; border-radius: 22px; }
+.r-knop { display: inline-block; padding: 26px 54px 30px; border-radius: 999px; background: var(--accent); color: var(--accent-op, #fff); font-size: 50px; font-weight: 800; letter-spacing: -.01em; }
+
+/* kaart zonder foto: grote kop onderin, kicker bovenin */
+.r-kaart.zonder { min-height: 860px; display: flex; flex-direction: column; }
+.r-kaart.zonder h2 { margin-top: auto; }
