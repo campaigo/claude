@@ -1,6 +1,6 @@
 ---
 name: post-maken
-description: Maakt een Instagram-post in de eigen stijl via Campaigo en plant pas in na een uitdrukkelijk ja. Gebruik bij elke vraag om een post, Reel, carrousel, bijschrift of inplannen.
+description: Maakt een Instagram-post in de eigen stijl via Campaigo en plant pas in na een uitdrukkelijk ja. Gebruik bij elke vraag om een post, Reel, carrousel, story, bijschrift of inplannen.
 ---
 
 # Post maken
@@ -61,6 +61,7 @@ Wil de ondernemer muziek die alleen in de Instagram-app kan? Dan plaatst hij die
 - Geen verzonnen klantverhalen, resultaten of beloftes.
 - Maximaal 2200 tekens en 30 hashtags.
 - Muziek kan alleen onder een Reel, en alleen de muziek die Instagram vrijgeeft voor koppelingen (niet alles uit de Instagram-app). Een foto of carrousel met muziek plaatst de ondernemer zelf in de Instagram-app.
+- Een story (`soort: "story"`) is één foto of één video tot 60 seconden, 24 uur te zien, zonder bijschrift: sla de varianten van stap 4 over en stel voor de tekst in het beeld te zetten. Muziek, een link, poll of andere sticker kan er via Campaigo niet in; wie dat wil, plaatst de story zelf in de Instagram-app. Ook een story gaat pas online na een uitdrukkelijk ja.
 
 ## Voorbeeld van goede uitvoer
 
