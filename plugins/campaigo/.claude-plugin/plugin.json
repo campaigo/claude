@@ -1,9 +1,14 @@
 {
   "name": "campaigo",
   "displayName": "Campaigo",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Instagram vanuit Claude: posts in je eigen stijl, inplannen pas na jouw ja, je week plannen, oude toppers opnieuw plaatsen, inspiratie omzetten naar een eigen versie, een uitgebreide analyse van je account, lessen uit je eigen cijfers en bewegende Reels, ook uitgebreid op je eigen computer met Claude Code. Werkt met je Campaigo-account.",
   "author": { "name": "De AI-Brouwerij", "url": "https://campaigo.nl" },
   "homepage": "https://campaigo.nl",
-  "license": "SEE LICENSE IN LICENSE"
+  "license": "SEE LICENSE IN LICENSE",
+  "icon": "./logo.png",
+  "documentationUrl": "https://campaigo.nl/hulp",
+  "supportUrl": "https://campaigo.nl/hulp",
+  "privacyPolicyUrl": "https://ai-brouwerij.nl/privacy",
+  "termsOfServiceUrl": "https://ai-brouwerij.nl/voorwaarden"
 }
