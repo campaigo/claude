@@ -2,7 +2,7 @@
 
 Instagram vanuit Claude, in je eigen stijl. Met deze plugin bedenk je posts samen met Claude. Je keurt ze zelf goed en Campaigo zet ze op tijd online, ook als je computer uit staat. Daarna zie je wat werkte, en Claude leert ervan.
 
-Je hebt een account bij [Campaigo](https://campaigo.ai-brouwerij.nl) nodig, met je professionele Instagram-account gekoppeld.
+Je hebt een account bij [Campaigo](https://campaigo.nl) nodig, met je professionele Instagram-account gekoppeld.
 
 ## Wat erin zit
 
@@ -35,7 +35,7 @@ Je hebt een account bij [Campaigo](https://campaigo.ai-brouwerij.nl) nodig, met 
 
 ## Wat er met je gegevens gebeurt
 
-De plugin praat alleen met Campaigo, op https://campaigo.ai-brouwerij.nl/mcp.
+De plugin praat alleen met Campaigo, op https://campaigo.nl/mcp.
 
 - **Wat Claude daar ophaalt:** je posts, cijfers, planning, Mijn merk en lessen. Vraag je om inspiratie bij een ander zakelijk account, dan haalt Campaigo de openbare posts van dat account op, zonder ze te bewaren.
 - **Wat Claude daar klaarzet:** posts, notities in je planning en codewoorden. Zet Claude een oude post opnieuw klaar, dan haalt Campaigo het bestand op dat moment bij Instagram op.
@@ -46,7 +46,7 @@ De Reel-studio werkt op je eigen computer, in de map Campaigo Reels in je thuism
 
 Campaigo bewaart je gegevens in de EU. Zie de [privacyverklaring](https://ai-brouwerij.nl/privacy), artikel 10.
 
-Campaigo is een dienst van De AI-Brouwerij. Vragen? Mail campaigo@ai-brouwerij.nl.
+Campaigo is een dienst van De AI-Brouwerij. Vragen? Mail hallo@campaigo.nl.
 
 ## In English
 
@@ -62,4 +62,4 @@ This plugin bundles the Campaigo connector and eight skills:
 - render short motion Reels as MP4 in Claude's code environment;
 - in Claude Code, build richer motion Reels on your own computer, in a motion style designed for your business, with music.
 
-Data goes only to campaigo.ai-brouwerij.nl through the connector.
+Data goes only to campaigo.nl through the connector.

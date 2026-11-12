@@ -1,13 +1,13 @@
 # Campaigo voor Claude
 
-Dit is de plugin van [Campaigo](https://campaigo.ai-brouwerij.nl) voor Claude: Instagram vanuit Claude, in je eigen stijl. Claude bedenkt en schrijft je posts, jij keurt ze goed, en Campaigo zet ze op tijd online. Daarna zie je wat werkte, en Claude leert ervan.
+Dit is de plugin van [Campaigo](https://campaigo.nl) voor Claude: Instagram vanuit Claude, in je eigen stijl. Claude bedenkt en schrijft je posts, jij keurt ze goed, en Campaigo zet ze op tijd online. Daarna zie je wat werkte, en Claude leert ervan.
 
 De plugin zelf staat in `plugins/campaigo`. Daar lees je wat erin zit en welke gegevens hij gebruikt.
 
 ## Wat je nodig hebt
 
-- Een account bij [Campaigo](https://campaigo.ai-brouwerij.nl), met je zakelijke Instagram-account gekoppeld.
-- Een betaald Claude-abonnement (Pro, Max, Team of Enterprise). Plugins werken niet op het gratis abonnement. Met een gratis account voeg je alleen de koppeling toe: zie [Claude koppelen](https://campaigo.ai-brouwerij.nl/hulp#claude-koppelen).
+- Een account bij [Campaigo](https://campaigo.nl), met je zakelijke Instagram-account gekoppeld.
+- Een betaald Claude-abonnement (Pro, Max, Team of Enterprise). Plugins werken niet op het gratis abonnement. Met een gratis account voeg je alleen de koppeling toe: zie [Claude koppelen](https://campaigo.nl/hulp#claude-koppelen).
 
 ## Toevoegen
 
@@ -25,7 +25,7 @@ Begin daarna een gesprek, bijvoorbeeld: "Leer mijn stijl" of "Zet een post klaar
 
 Wil je uitgebreide bewegende Reels? Die maakt Claude op je eigen computer, in de desktop-app van Claude in het tabblad "Code". De plugin staat daar vanzelf klaar als je met hetzelfde Claude-account inlogt.
 
-Hulp: [campaigo.ai-brouwerij.nl/hulp](https://campaigo.ai-brouwerij.nl/hulp) of campaigo@ai-brouwerij.nl.
+Hulp: [campaigo.nl/hulp](https://campaigo.nl/hulp) of hallo@campaigo.nl.
 
 ## In English
 
