@@ -30,13 +30,15 @@ Roep `post_goedkeuren` alleen aan als de ondernemer in dit gesprek uitdrukkelijk
 2. **Navragen.** Vraag wat nog ontbreekt: onderwerp, soort post en het bestand. Verzin geen feiten. Zet bij een onbekende prijs, datum of naam `[prijs]` in de tekst en vraag erom.
 3. **Bestand regelen.**
    - Kijk met `bestanden` wat er al staat.
-   - Staat het er niet, geef dan de link van `uploadlink`, of haal een openbaar bestand op met `bestand_van_url`.
-   - Een bestand dat in dit gesprek is gestuurd, staat daarmee nog niet in Campaigo.
+   - Staat het er niet, roep dan `uploadlink` aan. Er verschijnt een vak in het gesprek: vraag de ondernemer zijn foto of video daar in te zetten. Elke foto mag, ook een PNG of een iPhone-foto. Is het klaar, dan stuurt het vak zelf een bericht. Ziet de ondernemer geen vak, geef dan de link uit het antwoord.
+   - Een bestand dat in dit gesprek zelf is gestuurd, staat daarmee nog niet in Campaigo. Vraag dan vriendelijk om het in het vak te zetten.
+   - Een openbaar bestand op internet haal je op met `bestand_van_url`.
    - Wil de ondernemer iets bewegends? Gebruik dan de skill bewegende-reel.
+   - **Kijk wat erop staat.** Roep `bestand_bekijken` aan voor elk bestand dat in de post komt, voordat je varianten schrijft. Schrijf over wat je echt ziet en verzin niets wat er niet op staat. Lukt bekijken niet, vraag dan kort wat erop staat.
 4. **Varianten.** Bied twee of drie varianten met elk een andere opening. Zet onder elke variant in één regel waar hij op leunt. Gebruik geen woorden van de lijst "Liever niet".
 5. **Klaarzetten.** Na de keuze roep je `post_klaarzetten` aan met `soort`, `bestanden` (bestand-id's) en `bijschrift`.
    - Bij meer accounts geef je ook `account` mee.
-   - Bij een losse foto stel je een alt-tekst voor.
+   - Bij een losse foto stel je een alt-tekst voor, op basis van wat je met `bestand_bekijken` zag.
    - Bij een proef-Reel gebruik je `proef` MANUAL, tenzij de ondernemer anders kiest.
    - Bij een Reel vraag je of er muziek onder moet. Zo ja: zoek met `muziek_zoeken` (zonder zoekwoord krijg je wat nu trending is, of zoek op sfeer of genre), geef een paar nummers met hun luisterlink en laat de ondernemer kiezen. Geef het muziek-id mee als `muziek_id`. Praat er iemand in de video, zet de muziek dan zacht met `muziek_volume`, bijvoorbeeld 20 tot 30.
    - Bij een Reel kies je met `omslag_ms` het beeld dat in het profiel en bij Reels staat, in milliseconden vanaf het begin. Zonder `omslag_ms` is dat het eerste beeld. Weet je niet welk beeld goed is (een video van de ondernemer zelf), vraag het dan, of zeg dat hij de omslag ook zelf kan kiezen in het dashboard, bij de post.

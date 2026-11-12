@@ -65,7 +65,7 @@ Het script zet de uitkomst als JSON op stdout. `ok: true` betekent dat de MP4 aa
 
 ## 5. Plaatsen via Campaigo
 
-1. Roep `uploadlink` aan en geef de link. De ondernemer uploadt de MP4 daar.
+1. Roep `uploadlink` aan. Er verschijnt een vak in het gesprek. Vraag de ondernemer de MP4 die hij net downloadde daar in te slepen, of te kiezen met "Kies bestanden" (meestal staat hij in de map Downloads). Is het klaar, dan stuurt het vak zelf een bericht. Ziet hij geen vak, geef dan de link uit het antwoord.
 2. Vraag of er muziek onder moet. Zo ja: zoek met `muziek_zoeken` (zonder zoekwoord: trending, of zoek op sfeer), geef een paar nummers met hun luisterlink en laat kiezen.
 3. Roep `bestanden` aan, zoek de nieuwe video en zet de post klaar met `post_klaarzetten` (`soort: "reel"`, en `muziek_id` als er muziek onder moet).
 4. Laat de tekst, de muziek en het tijdstip zien. Zeg bij muziek dat Instagram geen voorbeeld met de muziek eronder kan laten zien.
