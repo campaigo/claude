@@ -1,37 +1,41 @@
 # Campaigo
 
-Instagram vanuit Claude, in je eigen stijl. Met deze plugin bedenk je posts samen met Claude. Je keurt ze zelf goed en Campaigo zet ze op tijd online, ook als je computer uit staat. Daarna zie je wat werkte, en Claude leert ervan.
+Voor ondernemers die het druk hebben in de zaak. Je vertelt Claude kort wat er speelt. Claude schrijft de post in jouw stijl en kiest zelf de vorm, het moment en de muziek. Jij zegt ja, en Campaigo zet hem op tijd online, ook als je computer uit staat. Daarna hoor je in gewone woorden wat werkte.
+
+Jij hebt het verhaal. Wij zorgen dat het verteld wordt.
 
 Je hebt een account bij [Campaigo](https://campaigo.nl) nodig, met je professionele Instagram-account gekoppeld.
 
 ## Wat erin zit
 
 - **De koppeling met Campaigo.** Claude kan daarmee:
-  - posts klaarzetten en inplannen;
+  - posts klaarzetten en, na jouw ja, online laten zetten;
   - je week overzien en oude posts opnieuw klaarzetten;
-  - je cijfers lezen en je account analyseren;
-  - codewoorden en automatische gesprekken klaarzetten.
+  - je cijfers lezen en je in gewone woorden vertellen wat werkte;
+  - mensen die een woord onder je post reageren vanzelf iets sturen, zoals je prijslijst.
 - **Acht skills:**
-  - **Mijn stijl** zoekt samen met jou uit hoe je klinkt en zet het in Mijn merk.
-  - **Post maken** maakt varianten in jouw stijl en plant pas in na jouw uitdrukkelijke ja.
-  - **Week plannen** kijkt wat er deze week staat en vult de lege dagen, post voor post met jouw ja.
-  - **Oude toppers** zoekt je best scorende oude posts en zet ze opnieuw klaar, met een vernieuwd bijschrift.
-  - **Inspiratie** maakt van een trend of een ander account een eigen versie, in jouw stijl.
-  - **Wat werkte** legt je cijfers uit in gewone taal en stelt lessen voor, met bewijs. Jij kiest wat Claude onthoudt.
-  - **Bewegende Reel** maakt een korte bewegende Reel als MP4, in je eigen kleuren.
-  - **Reel-studio** maakt uitgebreide bewegende Reels op je eigen computer, in een eigen bewegingsstijl voor jouw zaak: Claude ontwerpt die bij je eerste Reel, jij kiest, en daarna is elke Reel op maat. Met eigen muziek en geluidjes. Werkt in de desktop-app van Claude, in het tabblad Code (vraagt een betaald Claude-abonnement).
+  - **Post maken:** je vertelt wat er speelt, Claude schrijft de post en kiest de vorm, het moment en de muziek. Jij zegt ja.
+  - **Week plannen:** Claude zet je hele week klaar en laat hem in één overzicht zien. Met één ja op dat overzicht staat je week.
+  - **Mijn stijl:** Claude leert hoe jij klinkt, zodat je het maar één keer hoeft te vertellen.
+  - **Wat werkte:** je hoort in gewone woorden wat werkte, en Claude onthoudt wat jij wilt houden.
+  - **Oude posts opnieuw:** een post die goed liep komt terug, met een verse eerste zin.
+  - **Inspiratie:** wat een ander doet, omgezet naar jouw eigen versie.
+  - **Bewegende Reel:** een korte bewegende Reel uit jouw tekst, in je eigen kleuren.
+  - **Reel-studio:** maakt uitgebreide bewegende Reels op je eigen computer, in een eigen bewegingsstijl voor jouw zaak: Claude ontwerpt die bij je eerste Reel, jij kiest, en daarna is elke Reel op maat. Met eigen muziek en geluidjes. Werkt in de desktop-app van Claude, in het tabblad Code (vraagt een betaald Claude-abonnement).
 
 ## Zo begin je
 
 1. Voeg de plugin toe.
 2. Open het tabblad Connectors van de plugin en koppel Campaigo. Je logt in met de inloglink die Campaigo je mailt.
-3. Zet in de instellingen van Claude "Code execution and file creation" aan. Dat is nodig voor de bewegende Reels.
-4. Begin een gesprek, bijvoorbeeld:
-   - "Leer mijn stijl."
-   - "Maak een post over onze nieuwe collectie."
-   - "Plan mijn week."
-   - "Welke oude posts kan ik opnieuw plaatsen?"
+3. Begin een gesprek zoals je het tegen een collega zou zeggen, bijvoorbeeld:
+   - "Ik ben zaterdag extra open tot vijf. Maak daar een post van."
+   - "Ik heb geen tijd voor Instagram. Wat moet ik deze week posten?"
+   - "Zet mijn week klaar."
    - "Wat werkte de afgelopen maand?"
+
+Wil je later bewegende Reels? Vraag er in het gesprek om, dan zegt Claude welke instelling in Claude daarvoor aan moet.
+
+Lukt het koppelen niet, of zie je ertegen op? We koppelen ook graag samen met je: bel 06 23 51 07 10 of mail hallo@campaigo.nl.
 
 ## Wat er met je gegevens gebeurt
 
@@ -50,12 +54,12 @@ Campaigo is een dienst van De AI-Brouwerij. Vragen? Mail hallo@campaigo.nl.
 
 ## In English
 
-Campaigo lets small businesses run their Instagram from Claude. You need a Campaigo account with your Instagram linked.
+Campaigo is for business owners who are too busy for Instagram. Tell Claude what is going on; Claude drafts the post in your voice and picks the format, time and music. You need a Campaigo account with your Instagram linked.
 
 This plugin bundles the Campaigo connector and eight skills:
 - capture your brand voice;
-- draft posts in that voice, scheduled only after your explicit yes;
-- plan your week, one approved post at a time;
+- draft posts in that voice, choosing format, time and music itself, and publish only after your explicit yes;
+- plan your week and show it in one overview, where one explicit yes covers every post you saw in full;
 - bring back your best older posts with a refreshed caption;
 - turn a trend or another account into your own version;
 - explain your results and suggest lessons, with evidence;

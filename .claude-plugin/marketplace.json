@@ -1,6 +1,6 @@
 {
   "name": "campaigo",
-  "description": "De plugin van Campaigo: Instagram vanuit Claude, in je eigen stijl.",
+  "description": "De plugin van Campaigo: Instagram voor ondernemers die het druk hebben in de zaak.",
   "owner": {
     "name": "De AI-Brouwerij",
     "email": "hallo@campaigo.nl"
@@ -9,7 +9,7 @@
     {
       "name": "campaigo",
       "source": "./plugins/campaigo",
-      "description": "Instagram-posts maken in je eigen stijl, inplannen na jouw ja, je week plannen, oude toppers opnieuw plaatsen, leren van je cijfers en bewegende Reels maken, ook uitgebreid met Claude Code. Werkt met je Campaigo-account."
+      "description": "Claude schrijft je Instagram-posts in jouw stijl, plant je week en vertelt je in gewone woorden wat werkte. Jij zegt ja, Campaigo zet het online. Voor wie het druk heeft in de zaak."
     }
   ]
 }

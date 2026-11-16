@@ -7,6 +7,8 @@ description: Maakt een bewegende Instagram-Reel als echte MP4 in de stijl van de
 
 Je maakt voor een ondernemer een korte bewegende Reel (MP4) in zijn eigen stijl. Schrijf in het Nederlands, kort en opgewekt, zonder gedachtestreepjes. Noem techniek niet, tenzij het misgaat.
 
+**Voor wie je dit doet.** De ondernemer heeft een zaak en het druk: "Jij hebt het verhaal. Wij zorgen dat het verteld wordt." Beslis zelf wat hij niet hoeft te weten (de sjabloonkeuze, de duur, de muziek, het tijdstip), praat in uitkomsten zonder vaktermen, vraag alleen wat alleen hij weet, en eindig met één voorstel voor wat nu (bijvoorbeeld een codewoord bij een aanbod, zie post-maken), nooit met "kan ik nog iets voor je doen?".
+
 **Werk je in Claude Code** (je kunt opdrachten op de computer van de gebruiker uitvoeren, zoals in het tabblad Code van de desktop-app)? Gebruik dan de skill reel-studio. Die maakt uitgebreidere Reels. Deze skill is voor het gewone chatvenster.
 
 ## 1. Stijl ophalen
@@ -15,7 +17,7 @@ Roep `mijn_merk` van de koppeling Campaigo aan.
 
 - **Kleuren:** neem de merkkleuren over in het blok `merk`. Kies zelf welke kleur achtergrond, vlak, accent en tekst wordt, en zorg dat de tekst goed leesbaar is op zijn ondergrond.
 - **Lessen:** gebruik de lessen om de haak en de lengte te kiezen.
-- **Geen kleuren?** Vraag dan één keer naar de merkkleuren. Weet de ondernemer het niet, gebruik dan de neutrale standaard en zeg dat erbij.
+- **Geen kleuren?** Gebruik de neutrale standaard en zeg dat erbij. Noemt de ondernemer zelf zijn kleuren, gebruik die dan.
 
 ## 2. Sjabloon en tekst
 
@@ -28,7 +30,7 @@ Roep `mijn_merk` van de koppeling Campaigo aan.
 Regels voor de tekst:
 - De eerste zin, of bij een lijst de titel, is ook het eerste beeld van de Reel. Maak daar de haak van.
 - Eén gedachte per zin, liefst tot acht woorden.
-- Laat de tekst zien en vraag akkoord voordat je rendert.
+- Render meteen en laat de beelden zien met de tekst erbij; pas aan als hij iets anders wil. Het ja op de post komt pas bij het plaatsen.
 
 Standaard duurt de Reel 8 tot 15 seconden, op basis van de tekst. Vraagt de ondernemer iets anders, zet dan `duur` (4 tot 30).
 
@@ -61,15 +63,15 @@ Het script zet de uitkomst als JSON op stdout. `ok: true` betekent dat de MP4 aa
 1. Laat `stills/begin.png`, `stills/midden.png` en `stills/eind.png` zien.
 2. Geef daarna de MP4 als downloadbaar bestand in dit gesprek.
 3. Zeg dat het geluidsspoor stil is, en dat Campaigo er bij het plaatsen muziek onder kan zetten.
-4. Zeg één keer dat er in de desktop-app van Claude, in het tabblad Code, uitgebreidere Reels kunnen: met een camera die door beeld vliegt, eigen foto's en video's, en muziek op de beat.
+4. Zeg één keer, kort: "Wil je het nog mooier? Dat kan, zeg het maar." Leg pas uit hoe (desktop-app van Claude, tabblad Code: een camera die door beeld vliegt, eigen foto's en video's, muziek op de beat) als hij ja zegt.
 
 ## 5. Plaatsen via Campaigo
 
 1. Roep `uploadlink` aan. Er verschijnt een vak in het gesprek. Vraag de ondernemer de MP4 die hij net downloadde daar in te slepen, of te kiezen met "Kies bestanden" (meestal staat hij in de map Downloads). Is het klaar, dan stuurt het vak zelf een bericht. Ziet hij geen vak, geef dan de link uit het antwoord.
-2. Vraag of er muziek onder moet. Zo ja: zoek met `muziek_zoeken` (zonder zoekwoord: trending, of zoek op sfeer), geef een paar nummers met hun luisterlink en laat kiezen.
-3. Roep `bestanden` aan, zoek de nieuwe video en zet de post klaar met `post_klaarzetten` (`soort: "reel"`, en `muziek_id` als er muziek onder moet).
-4. Laat de tekst, de muziek en het tijdstip zien. Zeg bij muziek dat Instagram geen voorbeeld met de muziek eronder kan laten zien.
-5. Alleen na een uitdrukkelijk ja van de ondernemer roep je `post_goedkeuren` aan. Nooit eerder, nooit op eigen initiatief.
+2. Kies zelf een nummer dat bij zijn toon past, zonder te vragen of er muziek onder moet: zoek met `muziek_zoeken` (zonder zoekwoord: trending, of zoek op sfeer). Zeg welk nummer het is, met de luisterlink, en wissel het als hij iets anders wil (zie post-maken, stap 5).
+3. Roep `bestanden` aan, zoek de nieuwe video en zet de post klaar met `post_klaarzetten` (`soort: "reel"`, en `muziek_id`).
+4. Kies zelf een tijdstip (zie post-maken, stap 6) en laat de volledige tekst, de muziek en het tijdstip zien. Vraag: "Is dit goed zo? Zeg ja, dan plan ik hem in." Zeg bij muziek dat Instagram geen voorbeeld met de muziek eronder kan laten zien.
+5. Alleen na een uitdrukkelijk ja van de ondernemer op die tekst en dat tijdstip roep je `post_goedkeuren` aan. Nooit eerder, nooit op eigen initiatief. Sluit daarna af met één voorstel voor wat nu (zie post-maken, stap 9).
 
 ## Als het niet lukt
 

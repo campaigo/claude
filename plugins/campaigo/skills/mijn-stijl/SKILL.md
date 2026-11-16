@@ -1,6 +1,6 @@
 ---
 name: mijn-stijl
-description: Zoekt samen met de ondernemer uit hoe zijn Instagram klinkt en zet dat in Mijn merk van Campaigo. Gebruik bij leer mijn stijl, zo schrijf ik, mijn merk, of als Mijn merk nog leeg is.
+description: Leert hoe de ondernemer klinkt, vooral uit zijn eigen posts, en zet dat in Mijn merk van Campaigo, zodat hij het maar één keer hoeft te vertellen. Gebruik bij leer mijn stijl, zo schrijf ik, mijn merk, of als Mijn merk nog leeg is. Stel het zelf voor na de eerste post (zie post-maken).
 ---
 
 # Mijn stijl vastleggen
@@ -8,6 +8,10 @@ description: Zoekt samen met de ondernemer uit hoe zijn Instagram klinkt en zet 
 Leg vast hoe deze ondernemer klinkt, zodat elke volgende post daarop voortbouwt. Wat je vastlegt komt in Mijn merk van Campaigo. Claude leest dat voor elk bijschrift, en de ondernemer ziet en verandert het zelf in de studio.
 
 Alle tools horen bij de koppeling Campaigo. Praat kort en opgewekt, in de je-vorm, en noem geen toolnamen.
+
+## Voor wie je dit doet
+
+De ondernemer heeft een zaak en het druk. Instagram is niet zijn vak, en een intakegesprek over zijn merk is niet wat hij wil. Campaigo zegt het zo: "Jij hebt het verhaal. Wij zorgen dat het verteld wordt." Haal daarom zoveel mogelijk uit zijn eigen posts en vraag alleen wat alleen hij weet. Praat in gewone woorden en zeg geen veldnamen als "Aanspreken" of "Graag gebruiken", tenzij hij ernaar vraagt. Eindig met één voorstel voor wat nu, bijvoorbeeld een post klaarzetten, nooit met "kan ik nog iets voor je doen?".
 
 ## Wat Campaigo laat zien
 
@@ -27,12 +31,8 @@ Alle tools horen bij de koppeling Campaigo. Praat kort en opgewekt, in de je-vor
    - welke posts vaak bewaard of gedeeld worden.
 
    Bij minder dan 5 gemeten posts is dat een eerste indruk.
-4. **Vragen.** Stel in één bericht hooguit vier vragen en haak aan op wat je zag:
-   - Voor wie schrijf je, en wat moeten ze daarna doen?
-   - Welke woorden of gewoontes passen niet bij je?
-   - Waarover wil je meer posten, en waarover juist niet?
-   - Welke kleuren horen bij je merk? Stuur gerust twee of drie foto's waar je trots op bent.
-5. **Laten zien.** Laat precies zien wat je in Mijn merk zou zetten, met deze velden:
+4. **Vragen.** Stel in één bericht hooguit twee vragen en haak aan op wat je zag: "Voor wie schrijf je, en wat moeten ze daarna doen?" en "Wat past juist niet bij je?" De rest haal je uit zijn posts. Kleuren vraag je alleen als hij ze zelf noemt; zonder kleur laat je het veld leeg. Heeft hij nog geen posts, stel dan alleen de eerste vraag.
+5. **Laten zien, in gewone woorden.** Laat precies zien wat je in Mijn merk zou zetten, als korte beschrijving in plaats van als lijst met velden: "Zo klink je: ... Je zegt je. Weinig emoji. Dit zeg je graag: ... Dit liever niet: ... Vaste hashtags: ..." Wat je laat zien moet exact zijn wat je opslaat. Vraag daarna: "Klopt dit? Dan zet ik het in Mijn merk." Voor jezelf zijn dit de velden (noem de namen alleen als hij ernaar vraagt):
    - **Over dit merk**: hooguit 1000 tekens. Voor wie, het doel, hoe een bijschrift is opgebouwd en twee of drie letterlijke voorbeeldzinnen van de ondernemer.
    - **Toon**: kies uit Warm, Speels, Nuchter, Stoer en Chic, plus hooguit één eigen woord.
    - **Aanspreken**: je of u.
@@ -40,8 +40,6 @@ Alle tools horen bij de koppeling Campaigo. Praat kort en opgewekt, in de je-vor
    - **Graag gebruiken** en **Liever niet**: korte woorden of zinnen, hooguit 20 per lijst.
    - **Vaste hashtags**: hooguit 15.
    - **Kleuren**: als #rrggbb, hooguit 5, alleen als de ondernemer ze noemde of bevestigde.
-
-   Vraag daarna: "Klopt dit? Dan zet ik het in Mijn merk."
 6. **Opslaan.** Pas na een uitdrukkelijk ja roep je `mijn_merk_bijwerken` aan, met alleen de velden die je vastlegt. Een lijst vervangt de hele lijst. Bevestig daarna:
    - dat het bewaard is;
    - dat de volgende post hiervan uitgaat;
