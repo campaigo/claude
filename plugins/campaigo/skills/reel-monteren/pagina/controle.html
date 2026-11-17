@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reel nakijken</title>
+<link rel="stylesheet" href="/pagina/controle.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>Je Reel nakijken</h1>
+    <p class="sub">Kijk, tik aan wat anders moet, en zeg daarna in het gesprek met Claude: <b>klaar</b>. Alles wordt vanzelf bewaard.</p>
+  </div>
+  <div class="status"><span id="bewaard">Bewaard</span><button id="ongedaan" class="licht" disabled>Ongedaan maken</button></div>
+</header>
+
+<main>
+  <section class="speler">
+    <div class="telefoon" id="telefoon">
+      <video id="video" src="/montage/proxy.mp4" playsinline preload="auto"></video>
+      <div class="kaarten-laag" id="kaartenLaag"></div>
+      <div class="ondertitel" id="ondertitel"></div>
+      <button class="grootspeel" id="grootspeel" aria-label="Afspelen">▶</button>
+    </div>
+    <div class="knoppen">
+      <button id="terug" class="licht">−5 s</button>
+      <button id="speel" class="hoofd">Speel de montage</button>
+      <button id="vooruit" class="licht">+5 s</button>
+    </div>
+    <input type="range" id="schuif" min="0" max="1" step="0.01" value="0" aria-label="Tijd in de Reel">
+    <div class="tijd"><span id="tijd">0:00,0</span> van <span id="totaal">0:00,0</span></div>
+    <p class="uitleg">Dit is een snelle ruwe montage: de echte Reel krijgt nog de kleur, de bewegende kaarten en vloeiende knippen.</p>
+  </section>
+
+  <section class="werk">
+    <nav class="tabs" role="tablist">
+      <button data-tab="knippen" class="aan">Knippen</button>
+      <button data-tab="ondertitels">Ondertitels</button>
+      <button data-tab="kaarten">Beelden</button>
+      <button data-tab="geluid">Geluid en kleur</button>
+      <button data-tab="klaar">Klaar</button>
+    </nav>
+
+    <div class="tab aan" id="tab-knippen">
+      <p class="samenvatting" id="samenvatting"></p>
+      <div class="tempo">
+        <span>Tempo:</span>
+        <label><input type="radio" name="tempo" value="rustig"> Rustig</label>
+        <label><input type="radio" name="tempo" value="strak"> Strak</label>
+        <label><input type="radio" name="tempo" value="vlot"> Vlot</label>
+        <small id="tempoUitleg"></small>
+      </div>
+      <p class="hint">Tik op een woord om het eruit te halen; nog een keer tikken zet het terug. Grijze <i>eh</i>'s en ingekorte pauzes (⏸) gaan er standaard uit. Tik op ▶ om vanaf die zin te kijken.</p>
+      <div id="tekst" class="tekst"></div>
+    </div>
+
+    <div class="tab" id="tab-ondertitels">
+      <div class="keuzes">
+        <div>
+          <span class="label">Stijl</span>
+          <label><input type="radio" name="stijl" value="zin"> Een paar woorden tegelijk</label>
+          <label><input type="radio" name="stijl" value="woord"> Woord voor woord, groot</label>
+          <label><input type="radio" name="stijl" value="blok"> Op een kleurvlak</label>
+        </div>
+        <div>
+          <span class="label">Letters</span>
+          <label><input type="radio" name="hoofdletters" value="zoals"> Zoals gesproken</label>
+          <label><input type="radio" name="hoofdletters" value="klein"> alles klein</label>
+        </div>
+      </div>
+      <p class="hint">Tik op een woord om het in je accentkleur te zetten. Staat er een naam of merk verkeerd gespeld? Tik op <b>Aa</b> achter de regel.</p>
+      <div id="regels" class="regels"></div>
+    </div>
+
+    <div class="tab" id="tab-kaarten">
+      <p class="hint">Dit wil Claude in beeld zetten. Het plaatje laat ongeveer zien waar het komt; de echte Reel beweegt in jouw stijl. Houd het, vraag een aanpassing (je opmerking blijft bij dat beeld), of haal het weg.</p>
+      <div id="kaarten" class="kaartlijst"></div>
+    </div>
+
+    <div class="tab" id="tab-geluid">
+      <h2>Je stem</h2>
+      <p class="hint">Dezelfde tien seconden, voor en na: minder ruis, zachtere sisklanken, iets warmer en helderder, en even hard als andere Reels.</p>
+      <div class="voorna">
+        <figure><figcaption>Zoals opgenomen</figcaption><audio controls preload="none" src="/montage/geluid-voor.wav"></audio></figure>
+        <figure><figcaption>Opgeschoond</figcaption><audio controls preload="none" src="/montage/geluid-na.wav"></audio></figure>
+      </div>
+      <h2>Kleur</h2>
+      <p class="hint">Hetzelfde beeld in elke kleur. Kies wat bij je zaak past; huid blijft huid.</p>
+      <div id="looks" class="looks"></div>
+    </div>
+
+    <div class="tab" id="tab-klaar">
+      <h2>Nog iets?</h2>
+      <p class="hint">Iets dat niet op een andere plek past, zoals "begin pas bij de tweede zin" of "liever geen geluidjes".</p>
+      <textarea id="notities" rows="5" placeholder="Schrijf het hier, of zeg het straks in het gesprek."></textarea>
+      <div class="klaarblok">
+        <button id="klaarKnop" class="hoofd groot">Ik ben klaar</button>
+        <p id="klaarTekst" class="hint"></p>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="melding" class="melding" hidden></div>
+<script type="module" src="/pagina/controle.js"></script>
+</body>
+</html>

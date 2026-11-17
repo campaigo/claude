@@ -6,6 +6,10 @@ Kopiëren, aanpassen of verspreiden voor andere doelen mag alleen met schrifteli
 De lettertypen in skills/bewegende-reel/fonts vallen onder hun eigen licentie, de SIL Open Font License 1.1
 (zie OFL-DMSans.txt en OFL-Outfit.txt in die map).
 
+Delen van skills/reel-monteren zijn gebaseerd op claude-reel-editor van Nicola Pocock, onder de MIT-licentie
+(zie skills/reel-monteren/HERKOMST.md).
+
 In English: you may use this plugin together with a Campaigo account. Copying, modifying or redistributing it
 for other purposes requires written permission from De AI-Brouwerij. The bundled fonts are licensed under the
-SIL Open Font License 1.1.
+SIL Open Font License 1.1. Parts of skills/reel-monteren are based on claude-reel-editor by Nicola Pocock,
+under the MIT License (see skills/reel-monteren/HERKOMST.md).

@@ -13,7 +13,7 @@ Je hebt een account bij [Campaigo](https://campaigo.nl) nodig, met je profession
   - je week overzien en oude posts opnieuw klaarzetten;
   - je cijfers lezen en je in gewone woorden vertellen wat werkte;
   - mensen die een woord onder je post reageren vanzelf iets sturen, zoals je prijslijst.
-- **Acht skills:**
+- **Negen skills:**
   - **Post maken:** je vertelt wat er speelt, Claude schrijft de post en kiest de vorm, het moment en de muziek. Jij zegt ja.
   - **Week plannen:** Claude zet je hele week klaar en laat hem in één overzicht zien. Met één ja op dat overzicht staat je week.
   - **Mijn stijl:** Claude leert hoe jij klinkt, zodat je het maar één keer hoeft te vertellen.
@@ -22,6 +22,7 @@ Je hebt een account bij [Campaigo](https://campaigo.nl) nodig, met je profession
   - **Inspiratie:** wat een ander doet, omgezet naar jouw eigen versie.
   - **Bewegende Reel:** een korte bewegende Reel uit jouw tekst, in je eigen kleuren.
   - **Reel-studio:** maakt uitgebreide bewegende Reels op je eigen computer, in een eigen bewegingsstijl voor jouw zaak: Claude ontwerpt die bij je eerste Reel, jij kiest, en daarna is elke Reel op maat. Met eigen muziek en geluidjes. Werkt in de desktop-app van Claude, in het tabblad Code (vraagt een betaald Claude-abonnement).
+  - **Reel monteren:** je filmt jezelf terwijl je iets vertelt, Claude maakt er een Reel van: je stem klinkt beter, eh's, versprekingen en lange stiltes gaan eruit, en er komen ondertitels en beelden in jouw stijl bij. Je kijkt alles na op een pagina in je browser voordat de Reel gemaakt wordt. Werkt ook in de desktop-app, in het tabblad Code.
 
 ## Zo begin je
 
@@ -48,6 +49,8 @@ Er gaat niets online zonder jouw ja. De skill voor bewegende Reels draait een sc
 
 De Reel-studio werkt op je eigen computer, in de map Campaigo Reels in je thuismap. De eerste keer haalt hij de onderdelen op die nodig zijn om video te maken (van nodejs.org, npm en GitHub; samen ongeveer 300 MB). Je Reels, foto's en merkgegevens blijven op je computer, tot jij een Reel in Campaigo zet.
 
+Reel monteren werkt in dezelfde map. De eerste keer haalt het een spraakmodel op om te verstaan wat je zegt (van npm en huggingface.co; samen ongeveer 900 MB). Je video, je stem en wat je zegt blijven op je computer; ook de controlepagina draait op je eigen computer. Pas als jij de Reel in Campaigo zet, gaat de video naar Campaigo.
+
 Campaigo bewaart je gegevens in de EU. Zie de [privacyverklaring](https://ai-brouwerij.nl/privacy), artikel 10.
 
 Campaigo is een dienst van De AI-Brouwerij. Vragen? Mail hallo@campaigo.nl.
@@ -56,7 +59,7 @@ Campaigo is een dienst van De AI-Brouwerij. Vragen? Mail hallo@campaigo.nl.
 
 Campaigo is for business owners who are too busy for Instagram. Tell Claude what is going on; Claude drafts the post in your voice and picks the format, time and music. You need a Campaigo account with your Instagram linked.
 
-This plugin bundles the Campaigo connector and eight skills:
+This plugin bundles the Campaigo connector and nine skills:
 - capture your brand voice;
 - draft posts in that voice, choosing format, time and music itself, and publish only after your explicit yes;
 - plan your week and show it in one overview, where one explicit yes covers every post you saw in full;
@@ -65,5 +68,6 @@ This plugin bundles the Campaigo connector and eight skills:
 - explain your results and suggest lessons, with evidence;
 - render short motion Reels as MP4 in Claude's code environment;
 - in Claude Code, build richer motion Reels on your own computer, in a motion style designed for your business, with music.
+- in Claude Code, edit your own talking-head video into a Reel on your own computer: cleaned-up voice, fillers and long pauses cut, captions and on-brand graphics, approved by you on a local review page first.
 
 Data goes only to campaigo.nl through the connector.

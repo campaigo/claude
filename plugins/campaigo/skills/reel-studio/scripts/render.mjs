@@ -37,8 +37,10 @@ const { srv, url } = await server(map, studio);
 const b = await browser(studio);
 const fouten = [], waarschuwingen = [];
 
+let clipsKlaar = false;
 async function open() {
   const page = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
+  if (clipsKlaar) await page.addInitScript(() => { window.__CLIPS_KLAAR__ = true; });
   const pagFouten = [];
   page.on("pageerror", (e) => pagFouten.push(e.message));
   page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource/.test(m.text())) pagFouten.push(m.text()); });
@@ -73,7 +75,7 @@ let eerste;
 try { eerste = await open(); } catch (e) { await stop({ ok: false, fout: "De Reel geeft een fout in de browser.", detail: e.message }, 3); }
 const info = await eerste.page.evaluate(() => ({
   T: window.__T__, muziek: window.__MUZIEK__, omslag: window.__OMSLAG__, momenten: window.__MOMENTEN__,
-  sub: window.__SUB__ || 1, beweegtGezet: typeof window.__MOVING__ === "function", clips: window.__CLIPS__ || [], meldingen: window.__MELDINGEN__ || [],
+  sub: window.__SUB__ || 1, beweegtGezet: typeof window.__MOVING__ === "function", clips: window.__CLIPS__ || [], stem: window.__STEM__ || null, meldingen: window.__MELDINGEN__ || [],
 }));
 waarschuwingen.push(...info.meldingen);
 if (!(info.T >= 3)) await stop({ ok: false, fout: `De Reel duurt ${info.T} s; Instagram wil minstens 3 seconden.` }, 2);
@@ -91,6 +93,9 @@ for (const c of info.clips) {
     "-vf", `setpts=PTS/${snelheid},fps=30,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920`, "-q:v", "3", path.join(dir, "%04d.jpg")], { encoding: "utf8" });
   if (r.status !== 0) await stop({ ok: false, fout: `Video ${c.bron} kan niet gelezen worden.`, detail: (r.stderr || "").slice(-500) }, 2);
 }
+
+clipsKlaar = true;
+await eerste.page.evaluate(() => { window.__CLIPS_KLAAR__ = true; });
 
 // ---------- veilige zone ----------
 async function veiligOp(page, t) {
@@ -141,8 +146,20 @@ if (controle) {
 } else {
   // ---------- geluid ----------
   await import(pathToFileURL(path.join(MOTOR, "geluid.js")).href);
-  const wav = path.join(EXPORT, "geluid.wav");
+  let wav = path.join(EXPORT, "geluid.wav");
   fs.writeFileSync(wav, globalThis.ReelGeluid.wav(globalThis.ReelGeluid.maak(info.muziek)));
+  if (info.stem) {
+    // de stem van de klant vooraan, muziek en geluidjes zachter eronder; een begrenzer voorkomt kraken
+    const stemBron = path.resolve(map, info.stem.bron);
+    if (!fs.existsSync(stemBron)) await stop({ ok: false, fout: `Stem ${info.stem.bron} niet gevonden.` }, 2);
+    const a = info.muziek?.geluid === "stil" ? 0 : info.stem.achtergrond;
+    const mix = path.join(EXPORT, "geluid-mix.wav");
+    const m = spawnSync(ff, ["-hide_banner", "-loglevel", "error", "-y", "-i", wav, "-i", stemBron, "-filter_complex",
+      `[0:a]aresample=48000,volume=${a}[a];[1:a]aresample=48000,aformat=channel_layouts=mono,pan=stereo|c0=c0|c1=c0,apad[s];[s][a]amix=inputs=2:duration=shortest:normalize=0,alimiter=limit=0.84:level=false[m]`,
+      "-map", "[m]", "-t", info.T.toFixed(3), "-ar", "48000", mix], { encoding: "utf8" });
+    if (m.status !== 0) await stop({ ok: false, fout: "De stem en het geluid mengen lukte niet.", detail: (m.stderr || "").slice(-600) }, 3);
+    wav = mix;
+  }
 
   // ---------- beelden ----------
   const S = snel ? 1 : Math.max(1, info.sub);

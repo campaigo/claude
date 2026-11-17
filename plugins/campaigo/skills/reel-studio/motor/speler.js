@@ -74,10 +74,19 @@
     bron.start(0, vanaf % T);
   }
   async function maakGeluid() {
-    if (buffer || (window.__MUZIEK__ || {}).geluid === "stil") return;
+    const M = window.__MUZIEK__ || {}, S = window.__STEM__;
+    if (buffer || (M.geluid === "stil" && !S)) return;
     if (!window.ReelGeluid) await new Promise((ok, fout) => { const s = document.createElement("script"); s.src = "/motor/geluid.js"; s.onload = ok; s.onerror = fout; document.head.append(s); });
-    const g = window.ReelGeluid.maak(window.__MUZIEK__);
+    const g = window.ReelGeluid.maak(M);
     ctx = ctx || new AudioContext();
+    if (S) {
+      // de stem van de klant erbij, met muziek en geluidjes zachter eronder (zoals de render het mengt)
+      const data = await (await fetch(S.bron)).arrayBuffer();
+      const stemBuf = await new OfflineAudioContext(1, 1, g.sr).decodeAudioData(data);
+      const s = stemBuf.getChannelData(0);
+      const a = M.geluid === "stil" ? 0 : S.achtergrond;
+      for (let i = 0; i < g.l.length; i++) { const v = i < s.length ? s[i] : 0; g.l[i] = v + a * g.l[i]; g.r[i] = v + a * g.r[i]; }
+    }
     buffer = ctx.createBuffer(2, g.l.length, g.sr);
     buffer.copyToChannel(g.l, 0);
     buffer.copyToChannel(g.r, 1);

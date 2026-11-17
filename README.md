@@ -25,7 +25,7 @@ Een nieuwe versie haal je op bij "Customize" en "Plugins": open de marketplace v
 
 Begin daarna een gesprek zoals je het tegen een collega zou zeggen, bijvoorbeeld: "Ik ben zaterdag extra open tot vijf. Maak daar een post van." of "Ik heb geen tijd voor Instagram. Wat moet ik deze week posten?" Er gaat nooit iets online zonder jouw uitdrukkelijke ja.
 
-Wil je uitgebreide bewegende Reels? Die maakt Claude op je eigen computer, in de desktop-app van Claude in het tabblad "Code". De plugin staat daar vanzelf klaar als je met hetzelfde Claude-account inlogt.
+Wil je uitgebreide bewegende Reels, of een video van jezelf laten monteren tot een Reel met ondertitels? Dat doet Claude op je eigen computer, in de desktop-app van Claude in het tabblad "Code". De plugin staat daar vanzelf klaar als je met hetzelfde Claude-account inlogt.
 
 Lukt het koppelen niet, of zie je ertegen op? We koppelen ook graag samen met je: bel 06 23 51 07 10 of mail hallo@campaigo.nl.
 

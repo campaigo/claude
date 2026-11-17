@@ -9,7 +9,8 @@
  *
  * Wat de render van de pagina leest: window.__READY__, __T__ (seconden), __seek(t), __MUZIEK__ (voor het geluid),
  * __OMSLAG__, __MOMENTEN__ (beelden om na te kijken), __SUB__ en __MOVING__(t) (bewegingsonscherpte),
- * __CLIPS__ (videofragmenten), __VEILIG__() (tekst buiten de veilige zone) en __MELDINGEN__.
+ * __CLIPS__ (videofragmenten), __STEM__ (ingesproken geluid van de klant), __VEILIG__() (tekst buiten de veilige zone)
+ * en __MELDINGEN__.
  */
 (function () {
   "use strict";
@@ -238,7 +239,7 @@
   const momenten = [];
   const clips = [];
   let secties = [], muziekOpties = {};
-  let T = 15, omslagT = null, SUB = 2, beweegt = null, laden = [];
+  let T = 15, omslagT = null, SUB = 2, beweegt = null, laden = [], stem = null;
 
   function frame(t) {
     const B = t / BEAT;
@@ -254,6 +255,7 @@
   function zetClip(c, t) {
     const lokaal = t - c.van * BEAT;
     if (RENDER) {
+      if (!window.__CLIPS_KLAAR__) return;   // de render haalt de beelden pas na het laden uit de video
       const n = Math.max(1, Math.min(c.frames, Math.floor(lokaal * 30 * c.snelheid) + 1));
       const src = `export/frames/${c.naam}/${String(n).padStart(4, "0")}.jpg`;
       if (c.img.getAttribute("src") !== src) {
@@ -389,6 +391,11 @@
       clips.push(c);
       return el;
     },
+    /**
+     * Ingesproken geluid van de klant (een WAV of MP4 in de map van de Reel), vanaf seconde 0 onder de hele Reel.
+     * achtergrond: hoe hard de muziek en geluidjes eronder klinken (0 tot 1; standaard 0,35 met alleen geluidjes, 0,18 met muziek).
+     */
+    stem(bron, o = {}) { stem = { bron, achtergrond: o.achtergrond ?? null }; },
     async klaar() {
       if (R._klaar) return;
       R._klaar = true;
@@ -408,6 +415,7 @@
       window.__MOMENTEN__ = momenten.length ? momenten : [{ naam: "begin", t: 1 }, { naam: "midden", t: T / 2 }, { naam: "eind", t: T - 1 }];
       window.__SUB__ = SUB;
       window.__MOVING__ = beweegt ? (t) => !!beweegt(t / BEAT) : null;
+      window.__STEM__ = stem ? { bron: stem.bron, achtergrond: stem.achtergrond ?? ((muziekOpties.geluid || "muziek") === "muziek" ? 0.18 : 0.35) } : null;
       window.__CLIPS__ = clips.map(({ naam, bron, start, duur, snelheid }) => ({ naam, bron, start, duur: duur, snelheid }));
       window.__MELDINGEN__ = meldingen;
       window.__VEILIG__ = buitenVeilig;

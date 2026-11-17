@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><title>Reel</title><link rel="stylesheet" href="/motor/reel.css"></head>
+<body>
+<div id="stage"></div>
+<script src="/motor/reel.js"></script>
+<script src="/motor/blokken.js"></script>
+<script src="/motor/montage.js"></script>
+<script>
+  // Voorbeeld van een gemonteerde Reel: de video met ondertitels (R.montage), en daarover de goedgekeurde kaarten
+  // uit woorden.json. Heeft de zaak een bewegingsstijl (merk/beweging.js), laad die dan ook en bouw de kaarten daarmee.
+  R.merk("/merk/merk.json");
+  R.montage({ ondertitels: { stijl: "zin" } });
+
+  R.bouw(() => {
+    const M = R.M, { kaarten, duur } = R.MONTAGE;
+    const sec = R.sec;
+    const stukken = [];
+
+    for (const k of kaarten) {
+      const b0 = sec(k.van), b1 = sec(k.van + k.duur);
+      const regels = k.tekst.split(" / ").join("\n");
+
+      if (k.soort === "kop") {
+        // de haak: staat er vanaf het eerste beeld, boven het hoofd
+        const lab = R.labels(R.stage, regels, { achtergrond: M.accent, grootte: 96, y: 300, x: 90, breedte: 840 });
+        stukken.push((B) => {
+          lab.el.style.visibility = B < b1 ? "" : "hidden";
+          R.labelsIn(lab, B, b0 === 0 ? -2 : b0, 0.35);
+          R.labelsUit(lab, B, b1 - 0.6);
+        });
+        if (b0 > 0 && k.geluid) R.cue(b0, k.geluid);
+      }
+
+      if (k.soort === "lijst" || k.soort === "label" || k.soort === "getal") {
+        const lab = R.labels(R.stage, regels, { achtergrond: M.licht, grootte: 70, y: 290, x: 90, breedte: 840 });
+        stukken.push((B) => {
+          lab.el.style.visibility = B >= b0 && B < b1 ? "" : "hidden";
+          R.labelsIn(lab, B, b0, 0.6);
+          R.labelsUit(lab, B, b1 - 0.6);
+        });
+        lab.items.forEach((_, i) => R.cue(b0 + i * 0.6, k.geluid || "pop", { vol: 0.7 }));
+      }
+
+      if (k.soort === "oproep") {
+        const vlak = R.vlak(R.stage, R.kleur.rgba(M.donker, 0.55));
+        const o = R.oproep(R.stage, { kop: k.tekst, kleur: M.licht, midY: 640 });
+        stukken.push((B) => {
+          const aan = B >= b0;
+          vlak.style.visibility = o.el.style.visibility = aan ? "" : "hidden";
+          vlak.style.opacity = R.ease.uit(R.p(B, b0, 0.8)).toFixed(3);
+          R.oproepIn(o, B, b0);
+        });
+        if (k.geluid) R.cue(b0, k.geluid);
+        R.ondertitelsUit(k.van);   // de eindkaart krijgt het beeld voor zich alleen
+        R.moment("oproep", b0 + 3);
+      }
+      R.moment(k.id, b0 + 1.5);
+    }
+
+    R.elkFrame((B) => { for (const s of stukken) s(B); });
+    R.omslag(0);
+  });
+</script>
+</body>
+</html>

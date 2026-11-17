@@ -83,6 +83,7 @@ Kijk in de voorbeelden hoe de fietsenmaker en de bakkerij dat doen, maar maak vo
 | `R.omslag(b)`, `R.moment(naam, b)` | Het beeld dat de omslag wordt (in het profiel en bij Reels; de render geeft het als `omslag.jpg` en `omslag_ms`); beelden die `--controle` maakt (het eerste beeld komt er altijd bij). |
 | `R.onscherpte(sub, beweegt(B))` | Bewegingsonscherpte: `sub` opnames per beeld waar `beweegt` waar is. 4 tot 10 voor snelle bewegingen. |
 | `R.clip(ouder, { bron, start, duur, van, snelheid })` | Videofragment van de klant; `van` = beat waarop het begint te spelen. |
+| `R.stem(bron, { achtergrond })` | Ingesproken geluid van de klant (WAV) onder de hele Reel, vanaf seconde 0. Muziek en geluidjes klinken zachter eronder: `achtergrond` 0 tot 1 (standaard 0,35 met alleen geluidjes, 0,18 met muziek). |
 | `R.zet(el, { x, y, z, s, sx, sy, r, rx, ry, o, blur })` | Transform, dekking en vervaging in één keer. |
 | `R.maak(html, ouder)`, `R.zicht(el, aan)` | Element maken; tonen of verbergen. |
 | `R.woorden(el, masker)`, `R.opmaak(tekst)` | Tekst in woorden splitsen; tekst veilig maken met `*nadruk*`. |
@@ -106,6 +107,19 @@ Kijk in de voorbeelden hoe de fietsenmaker en de bakkerij dat doen, maar maak vo
 | `R.korrel(ouder, sterkte)` | Filmkorrel; geeft een functie die je elk beeld met B aanroept. Het element zelf is `.el` van die functie. |
 | `R.oproep(ouder, { kop, sub, knop, kleur, midY })`, `R.oproepIn(o, B, b0)` | Gecentreerde eindkaart met afzender en logo. Past dat niet bij de stijl, bouw dan een eigen oproep. |
 | `R.typen(el, tekst, B, b0, cps)` | Tekst die getypt wordt. |
+
+## Montage van eigen opnames (montage.js)
+
+Voor de skill reel-monteren. Laad `/motor/montage.js` na blokken.js. `R.montage({ data, zoom, ondertitels, achtergrond })` zet de gemonteerde video (`master.mp4`) onder de hele Reel, de stem (`master.wav`) eronder en de ondertitels erop, en zoomt om en om in op elke knip. Alles komt uit `woorden.json`, dat `monteren.mjs` maakt. Het zet het geluid op alleen geluidjes; wil je muziek, roep dan zelf `R.geluid("muziek")` en `R.muziek(...)` aan.
+
+| Wat | Gebruik |
+|---|---|
+| `R.MONTAGE` | De gegevens na het laden: `duur`, `woorden` (`{ i, tekst, van, tot, nadruk }` in seconden van de Reel), `regels`, `naden` (seconden van de knippen), `kaarten` (`{ id, soort, tekst, van, duur, plek, geluid, notitie }`), `ondertitels`. |
+| `R.sec(s)` | Seconden naar beats. |
+| `R.woordTijd(i)` | Seconde waarop woord `i` (nummer uit tekst.txt) te horen is, of null als het eruit is. |
+| `R.kaart(id)` | Een goedgekeurde kaart. |
+| `R.ondertitels(ouder, d, { stijl, y, grootte, hoofdletters, kleur, nadruk, blok })` | De ondertitels zelf (R.montage roept dit aan). `stijl`: `zin`, `woord` of `blok`. |
+| `R.ondertitelsUit(van, tot)` | Ondertitels even weg (seconden), bijvoorbeeld onder een eindkaart. |
 
 ## Geluid
 
