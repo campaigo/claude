@@ -6,6 +6,9 @@
 set -e
 STUDIO="${1:-$HOME/Campaigo Reels}"
 HIER="$(cd "$(dirname "$0")" && pwd)"
+# Engels als ../taal.json bestaat met "en" erin (alleen in de Engelse plugin), anders Nederlands (zie taal.mjs).
+EN=""
+if grep -q '"en"' "$HIER/../taal.json" 2>/dev/null; then EN=1; fi
 case "$(uname -s)" in
   MINGW*|MSYS*|CYGWIN*)
     exec powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(cygpath -w "$HIER/inrichten.ps1")" -Studio "$(cygpath -w "$STUDIO")" ;;
@@ -24,7 +27,11 @@ else
   mkdir -p "$STUDIO/.studio"
   TMP="$(mktemp -d)"
   if ! curl -fsSL "https://nodejs.org/dist/$NODEV/$NAAM.tar.gz" -o "$TMP/node.tar.gz"; then
-    echo '{"ok": false, "fout": "Node downloaden lukte niet. Controleer het internet."}'
+    if [ -n "$EN" ]; then
+      echo '{"ok": false, "fout": "Downloading Node did not work. Check the internet connection."}'
+    else
+      echo '{"ok": false, "fout": "Node downloaden lukte niet. Controleer het internet."}'
+    fi
     rm -rf "$TMP"; exit 1
   fi
   tar -xzf "$TMP/node.tar.gz" -C "$TMP"

@@ -6,6 +6,9 @@
  */
 (function () {
   "use strict";
+  const EN = typeof document !== "undefined" && document.documentElement.lang === "en";
+  function tt(nl, en) { return EN ? en : nl; }
+  const komma = (x) => x.toFixed(1).replace(".", EN ? "." : ",");
   const stage = document.getElementById("stage");
   const T = window.__T__;
   const qs = new URLSearchParams(location.search);
@@ -38,11 +41,11 @@
   wrap.append(veilig);
   const start = document.createElement("div");
   start.id = "r-start";
-  start.innerHTML = "<span>Klik om af te spelen met geluid</span>";
+  start.innerHTML = `<span>${tt("Klik om af te spelen met geluid", "Click to play with sound")}</span>`;
   wrap.append(start);
   const balk = document.createElement("div");
   balk.id = "r-balk";
-  balk.innerHTML = `<button id="r-speel">Pauze</button><input id="r-schuif" type="range" min="0" max="${T}" step="0.01" value="0"><span id="r-tijd"></span><button id="r-geluid">Geluid aan</button><button id="r-zone">Veilige zone</button>`;
+  balk.innerHTML = `<button id="r-speel">${tt("Pauze", "Pause")}</button><input id="r-schuif" type="range" min="0" max="${T}" step="0.01" value="0"><span id="r-tijd"></span><button id="r-geluid">${tt("Geluid aan", "Sound on")}</button><button id="r-zone">${tt("Veilige zone", "Safe zone")}</button>`;
   document.body.append(balk);
   const $ = (id) => document.getElementById(id);
 
@@ -84,14 +87,14 @@
   }
   async function zetGeluid(aan) {
     geluidAan = aan;
-    $("r-geluid").textContent = aan ? "Geluid uit" : "Geluid aan";
+    $("r-geluid").textContent = aan ? tt("Geluid uit", "Sound off") : tt("Geluid aan", "Sound on");
     $("r-geluid").classList.toggle("aan", aan);
     if (aan) {
       ctx = ctx || new AudioContext();
       await ctx.resume();
-      $("r-geluid").textContent = "Geluid laden...";
+      $("r-geluid").textContent = tt("Geluid laden...", "Loading sound...");
       await maakGeluid();
-      $("r-geluid").textContent = "Geluid uit";
+      $("r-geluid").textContent = tt("Geluid uit", "Sound off");
       startGeluid(nu());
     } else stopGeluid();
   }
@@ -99,7 +102,7 @@
     if (aan === speelt) return;
     if (aan) { t0 = performance.now() - stil * 1000; speelt = true; startGeluid(stil); }
     else { stil = nu(); speelt = false; stopGeluid(); }
-    $("r-speel").textContent = speelt ? "Pauze" : "Speel";
+    $("r-speel").textContent = speelt ? tt("Pauze", "Pause") : tt("Speel", "Play");
   }
 
   start.addEventListener("click", async () => { start.remove(); speel(true); t0 = performance.now(); await zetGeluid(true); });
@@ -118,7 +121,7 @@
     window.R.speelt = speelt;
     if (speelt) window.R.frame(t);
     $("r-schuif").value = t;
-    $("r-tijd").textContent = `${t.toFixed(1).replace(".", ",")} / ${T.toFixed(1).replace(".", ",")} s`;
+    $("r-tijd").textContent = `${komma(t)} / ${komma(T)} s`;
     requestAnimationFrame(lus);
   }
   window.R.frame(stil);
@@ -134,5 +137,5 @@
     } catch (e) { /* server weg: niets doen */ }
   }, 900);
 
-  if ((window.__MELDINGEN__ || []).length) console.warn("Meldingen van de Reel:", window.__MELDINGEN__);
+  if ((window.__MELDINGEN__ || []).length) console.warn(tt("Meldingen van de Reel:", "Messages from the Reel:"), window.__MELDINGEN__);
 })();

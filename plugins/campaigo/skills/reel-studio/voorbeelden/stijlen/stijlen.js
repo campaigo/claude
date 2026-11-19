@@ -14,6 +14,8 @@
  */
 (function () {
   "use strict";
+  const EN = typeof document !== "undefined" && document.documentElement.lang === "en";
+  function tt(nl, en) { return EN ? en : nl; }
   const { maak, zet, ease, p, mix, clamp, veer, stoot, kleur, toeval } = R;
   const telWoorden = (t) => String(t || "").replace(/\*/g, "").trim().split(/\s+/).filter(Boolean).length;
   const even = (b) => Math.ceil(b / 2) * 2;
@@ -217,7 +219,7 @@
     const opWereld = opVlak(bg);
     const items = cfg.kaarten || [];
     const n = items.length;
-    if (n < 2 || n > 5) R.meldingen.push("De stijl wereld werkt met 2 tot 5 kaarten.");
+    if (n < 2 || n > 5) R.meldingen.push(tt("De stijl wereld werkt met 2 tot 5 kaarten.", "The wereld style works with 2 to 5 cards."));
     const P = 1400;
     const HOOK = [0, -3300, 0];
     const SPOTS = [[-1700, -1250, -900], [1700, 250, 250], [-1500, 1750, -1300], [1600, 3250, 100], [-1600, 4750, -700]];
@@ -419,7 +421,7 @@
   function bouwBeeld(cfg) {
     const M = R.M;
     const shots = (cfg.shots || []).map((s, k) => ({ ...s, tekst: k === 0 && cfg.haak ? cfg.haak : s.tekst }));
-    if (!shots.length) { R.meldingen.push("De stijl beeld heeft minstens één shot met een foto of video nodig."); return; }
+    if (!shots.length) { R.meldingen.push(tt("De stijl beeld heeft minstens één shot met een foto of video nodig.", "The beeld style needs at least one shot with a photo or video.")); return; }
     // ---- draaiboek ----
     let b = 0;
     const plan = shots.map((s, k) => {

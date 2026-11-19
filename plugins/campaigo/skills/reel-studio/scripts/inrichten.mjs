@@ -12,6 +12,7 @@ import fs from "fs";
 import path from "path";
 import { spawnSync } from "child_process";
 import { meld, optie, standaardStudio, vereist } from "./gedeeld.mjs";
+import { tt } from "./taal.mjs";
 
 const VERSIES = { "playwright-core": "1.56.1", "ffmpeg-static": "5.2.0" };
 const args = process.argv.slice(2);
@@ -20,7 +21,7 @@ const intern = path.join(studio, ".studio");
 const stappen = [];
 
 const [hoofd] = process.versions.node.split(".").map(Number);
-if (hoofd < 18) meld({ ok: false, fout: `Node ${process.versions.node} is te oud; nodig is 18 of nieuwer. Draai inrichten.ps1 of inrichten.sh, die zet een eigen Node klaar.` }, 1);
+if (hoofd < 18) meld({ ok: false, fout: tt(`Node ${process.versions.node} is te oud; nodig is 18 of nieuwer. Draai inrichten.ps1 of inrichten.sh, die zet een eigen Node klaar.`, `Node ${process.versions.node} is too old; version 18 or newer is needed. Run inrichten.ps1 or inrichten.sh, which sets up its own Node.`) }, 1);
 
 fs.mkdirSync(path.join(studio, "merk", "fonts"), { recursive: true });
 fs.mkdirSync(intern, { recursive: true });
@@ -29,10 +30,10 @@ if (!fs.existsSync(leesmij)) {
   fs.writeFileSync(leesmij, [
     "Campaigo Reels",
     "",
-    "In deze map maakt Claude je bewegende Reels. Elke Reel heeft een eigen map; de video staat daarin in export/reel.mp4.",
-    "In merk/ staan je kleuren, logo en lettertype, die gebruikt Claude voor elke Reel.",
-    "De map .studio bevat de onderdelen om video's te maken. Die kun je laten staan.",
-    "Weggooien kan altijd: je Reels in Campaigo blijven gewoon bestaan.",
+    tt("In deze map maakt Claude je bewegende Reels. Elke Reel heeft een eigen map; de video staat daarin in export/reel.mp4.", "In this folder Claude makes your animated Reels. Each Reel has its own folder, and the video is inside it at export/reel.mp4."),
+    tt("In merk/ staan je kleuren, logo en lettertype, die gebruikt Claude voor elke Reel.", "merk/ holds your colours, logo and font. Claude uses them for every Reel."),
+    tt("De map .studio bevat de onderdelen om video's te maken. Die kun je laten staan.", "The .studio folder holds the parts for making the videos. You can leave it be."),
+    tt("Weggooien kan altijd: je Reels in Campaigo blijven gewoon bestaan.", "You can delete it at any time. Your Reels stay in Campaigo."),
     "",
   ].join("\r\n"));
 }
@@ -54,16 +55,16 @@ if (JSON.stringify(huidig?.dependencies) !== JSON.stringify(VERSIES) || !Object.
   const r = cli
     ? spawnSync(process.execPath, [cli, ...npmArgs], { cwd: intern, encoding: "utf8", env })
     : spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", npmArgs, { cwd: intern, encoding: "utf8", env, shell: process.platform === "win32" });
-  if (r.status !== 0) meld({ ok: false, fout: "Installeren van de onderdelen lukte niet.", detail: (r.stderr || String(r.error || "")).slice(-1500) }, 1);
-  stappen.push("onderdelen geïnstalleerd");
+  if (r.status !== 0) meld({ ok: false, fout: tt("Installeren van de onderdelen lukte niet.", "Installing the parts didn't work."), detail: (r.stderr || String(r.error || "")).slice(-1500) }, 1);
+  stappen.push(tt("onderdelen geïnstalleerd", "parts installed"));
 }
 
 // ---------- ffmpeg ----------
 let ffmpegPad;
-try { ffmpegPad = vereist(studio, "ffmpeg-static"); } catch (e) { meld({ ok: false, fout: "ffmpeg-static ontbreekt.", detail: e.message }, 1); }
-if (!ffmpegPad || !fs.existsSync(ffmpegPad)) meld({ ok: false, fout: "ffmpeg is niet gedownload. Waarschijnlijk blokkeerde het netwerk of een virusscanner de download van GitHub. Draai dit script nog eens." }, 1);
+try { ffmpegPad = vereist(studio, "ffmpeg-static"); } catch (e) { meld({ ok: false, fout: tt("ffmpeg-static ontbreekt.", "ffmpeg-static is missing."), detail: e.message }, 1); }
+if (!ffmpegPad || !fs.existsSync(ffmpegPad)) meld({ ok: false, fout: tt("ffmpeg is niet gedownload. Waarschijnlijk blokkeerde het netwerk of een virusscanner de download van GitHub. Draai dit script nog eens.", "ffmpeg wasn't downloaded. A network or virus scanner probably blocked the download from GitHub. Run this script again.") }, 1);
 const enc = spawnSync(ffmpegPad, ["-hide_banner", "-encoders"], { encoding: "utf8" });
-if (enc.status !== 0 || !/libx264/.test(enc.stdout)) meld({ ok: false, fout: "ffmpeg werkt niet of kan geen H.264 maken.", detail: (enc.stderr || "").slice(-600) }, 1);
+if (enc.status !== 0 || !/libx264/.test(enc.stdout)) meld({ ok: false, fout: tt("ffmpeg werkt niet of kan geen H.264 maken.", "ffmpeg doesn't work, or can't make H.264."), detail: (enc.stderr || "").slice(-600) }, 1);
 
 // ---------- browser ----------
 process.env.PLAYWRIGHT_BROWSERS_PATH = path.join(intern, "browsers");
@@ -84,9 +85,9 @@ if (!keuze) {
   if (!(await probeer({}))) {
     const cli = path.join(intern, "node_modules", "playwright-core", "cli.js");
     const r = spawnSync(process.execPath, [cli, "install", "chromium-headless-shell"], { cwd: intern, encoding: "utf8", env: process.env });
-    if (r.status !== 0) meld({ ok: false, fout: "Er staat geen Chrome of Edge op deze computer en een eigen browser downloaden lukte niet.", detail: (r.stderr || "").slice(-1200) }, 1);
-    stappen.push("eigen browser gedownload");
-    if (!(await probeer({}))) meld({ ok: false, fout: "De gedownloade browser start niet." }, 1);
+    if (r.status !== 0) meld({ ok: false, fout: tt("Er staat geen Chrome of Edge op deze computer en een eigen browser downloaden lukte niet.", "Neither Chrome nor Edge is installed on this computer, and downloading a browser of its own didn't work."), detail: (r.stderr || "").slice(-1200) }, 1);
+    stappen.push(tt("eigen browser gedownload", "own browser downloaded"));
+    if (!(await probeer({}))) meld({ ok: false, fout: tt("De gedownloade browser start niet.", "The downloaded browser won't start.") }, 1);
   }
   keuze = { channel: null };
 }
@@ -104,7 +105,7 @@ meld({
   ok: true,
   studio,
   node: process.execPath,
-  browser: keuze.channel || "eigen Chromium",
-  stappen: stappen.length ? stappen : ["alles stond al klaar"],
+  browser: keuze.channel || tt("eigen Chromium", "own Chromium"),
+  stappen: stappen.length ? stappen : [tt("alles stond al klaar", "everything was already in place")],
   merk: fs.existsSync(path.join(studio, "merk", "merk.json")) ? path.join(studio, "merk", "merk.json") : null,
 });

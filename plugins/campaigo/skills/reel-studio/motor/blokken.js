@@ -4,6 +4,8 @@
  */
 (function () {
   "use strict";
+  const EN = typeof document !== "undefined" && document.documentElement.lang === "en";
+  function tt(nl, en) { return EN ? en : nl; }
   const { maak, zet, ease, p, mix, clamp, veer, stoot, woorden, opmaak, kleur, toeval, stage } = R;
 
   // ---------- vlakken en vloed ----------
@@ -51,7 +53,7 @@
       return true;
     };
     let lo = o.min ?? 72, hi = o.max ?? 300;
-    if (!past(lo)) R.meldingen.push(`De zin "${t.slice(0, 40)}" past ook op ${lo} px niet; maak hem korter.`);
+    if (!past(lo)) R.meldingen.push(tt(`De zin "${t.slice(0, 40)}" past ook op ${lo} px niet; maak hem korter.`, `The line "${t.slice(0, 40)}" doesn't fit at ${lo} px either. Make it shorter.`));
     while (hi - lo > 2) { const m = (lo + hi) >> 1; if (past(m)) lo = m; else hi = m; }
     const g = lo;
     el.style.fontSize = `${g}px`;

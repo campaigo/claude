@@ -8,10 +8,11 @@ import fs from "fs";
 import path from "path";
 import { spawn } from "child_process";
 import { meld, server, vindStudio } from "./gedeeld.mjs";
+import { tt } from "./taal.mjs";
 
 const args = process.argv.slice(2);
 const map = path.resolve(args.find((a) => !a.startsWith("--")) || ".");
-if (!fs.existsSync(path.join(map, "reel.html"))) meld({ ok: false, fout: `Geen reel.html in ${map}.` }, 2);
+if (!fs.existsSync(path.join(map, "reel.html"))) meld({ ok: false, fout: tt(`Geen reel.html in ${map}.`, `No reel.html in ${map}.`) }, 2);
 const studio = vindStudio(map);
 
 // een vaste poort als het kan, zodat de link na een herstart dezelfde blijft

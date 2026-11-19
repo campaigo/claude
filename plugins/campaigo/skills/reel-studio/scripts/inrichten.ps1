@@ -8,6 +8,9 @@ $ProgressPreference = "SilentlyContinue"
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $NodeVersie = "v24.11.1"
 $hier = Split-Path -Parent $MyInvocation.MyCommand.Path
+# Engels als ../taal.json bestaat met "en" erin (alleen in de Engelse plugin), anders Nederlands (zie taal.mjs).
+$taalBestand = Join-Path (Split-Path -Parent $hier) "taal.json"
+$en = (Test-Path $taalBestand) -and ((Get-Content $taalBestand -Raw -ErrorAction SilentlyContinue) -match '"en"')
 
 function Test-Node($pad) {
   try { $v = & $pad --version 2>$null; if ($v -match '^v(\d+)\.') { return [int]$Matches[1] -ge 18 } } catch {}
@@ -32,7 +35,8 @@ else {
     if (Test-Path $doel) { Remove-Item -Recurse -Force $doel }
     Move-Item (Join-Path $tmp $naam) $doel
   } catch {
-    Write-Output (@{ ok = $false; fout = "Node downloaden lukte niet: $($_.Exception.Message)" } | ConvertTo-Json -Compress)
+    $melding = if ($en) { "Downloading Node didn't work: $($_.Exception.Message)" } else { "Node downloaden lukte niet: $($_.Exception.Message)" }
+    Write-Output (@{ ok = $false; fout = $melding } | ConvertTo-Json -Compress)
     exit 1
   } finally {
     if (Test-Path $zip) { Remove-Item -Force $zip }

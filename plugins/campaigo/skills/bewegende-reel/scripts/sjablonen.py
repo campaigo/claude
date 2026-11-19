@@ -6,6 +6,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from taal import tt
+
 import numpy as np
 from PIL import Image, ImageOps
 
@@ -33,6 +35,8 @@ from motor import (
     vorm_laag,
     zet_tekst,
 )
+
+from taal import tt
 
 VEILIG_BREEDTE = VEILIG_R - VEILIG_L
 VEILIG_HOOGTE = VEILIG_O - VEILIG_B
@@ -65,7 +69,7 @@ class Stijl:
 def lees_stijl(invoer: dict) -> Stijl:
     merk = invoer.get("merk") or {}
     if not isinstance(merk, dict):
-        raise InvoerFout('"merk" moet een blok zijn met kleuren en lettertype.')
+        raise InvoerFout(tt('"merk" moet een blok zijn met kleuren en lettertype.', '"merk" must be a block with colours and a font.'))
     kleuren = {**STANDAARD, **{k: v for k, v in (merk.get("kleuren") or {}).items() if v}}
     vet, normaal, opmerking = kies_lettertype(merk.get("lettertype"))
     stijl = Stijl(
@@ -85,9 +89,9 @@ def lees_stijl(invoer: dict) -> Stijl:
 def teksten(invoer: dict, sleutel: str, minimum: int, maximum: int) -> list[str]:
     waarde = invoer.get(sleutel)
     if not isinstance(waarde, list) or not all(isinstance(z, str) and z.strip() for z in waarde):
-        raise InvoerFout(f'"{sleutel}" moet een lijst met teksten zijn.')
+        raise InvoerFout(tt(f'"{sleutel}" moet een lijst met teksten zijn.', f'"{sleutel}" must be a list of texts.'))
     if not minimum <= len(waarde) <= maximum:
-        raise InvoerFout(f'"{sleutel}" moet {minimum} tot {maximum} teksten bevatten, nu {len(waarde)}.')
+        raise InvoerFout(tt(f'"{sleutel}" moet {minimum} tot {maximum} teksten bevatten, nu {len(waarde)}.', f'"{sleutel}" must have {minimum} to {maximum} texts, now {len(waarde)}.'))
     return [" ".join(z.split()) for z in waarde]
 
 
@@ -105,7 +109,7 @@ def verdeel_tijd(
     """Rekt of krimpt de leestijden zodat de Reel binnen de gewenste duur valt."""
     if gevraagd is not None:
         if not 4 <= float(gevraagd) <= 30:
-            raise InvoerFout('"duur" moet tussen 4 en 30 seconden liggen.')
+            raise InvoerFout(tt('"duur" moet tussen 4 en 30 seconden liggen.', '"duur" must be between 4 and 30 seconds.'))
         laagste = hoogste = float(gevraagd)
     som = sum(leestijden)
     totaal = som + vast
@@ -117,7 +121,7 @@ def verdeel_tijd(
         return leestijden
     if factor < 0.78:
         raise InvoerFout(
-            f"Dit is te veel tekst voor {hoogste:.0f} seconden. Haal er een zin uit, maak de zinnen korter of vraag om een langere Reel."
+            tt(f"Dit is te veel tekst voor {hoogste:.0f} seconden. Haal er een zin uit, maak de zinnen korter of vraag om een langere Reel.", f"This is too much text for {hoogste:.0f} seconds. Remove a sentence, make the sentences shorter, or ask for a longer Reel.")
         )
     return [t * factor for t in leestijden]
 
@@ -173,7 +177,7 @@ class TekstOpVlakken:
         t += T_EIND
         self.seconden = t
         self.aantal = round(t * FPS)
-        self.vakken = controleer_veilig(alle_lagen, "De tekst", s.opmerkingen)
+        self.vakken = controleer_veilig(alle_lagen, tt("De tekst", "The text"), s.opmerkingen)
         # Het middenbeeld voor de plaatjes: een moment waarop de middelste zin rustig staat.
         midden = self.scenes[len(self.scenes) // 2]
         self.midden = round(((midden["in"] or 0.0) + T_IN + 0.3) * FPS)
@@ -226,12 +230,12 @@ class FotoMetTekst:
         if not pad.is_absolute():
             pad = map_invoer / pad
         if not pad.is_file():
-            raise InvoerFout(f"De foto {invoer.get('foto')} is niet gevonden.")
+            raise InvoerFout(tt(f"De foto {invoer.get('foto')} is niet gevonden.", f"The photo {invoer.get('foto')} wasn't found."))
         try:
             with Image.open(pad) as bron:
                 foto = ImageOps.exif_transpose(bron).convert("RGB")
         except Exception as e:
-            raise InvoerFout(f"Deze foto kan ik niet openen ({type(e).__name__}). Stuur een JPEG of PNG.") from e
+            raise InvoerFout(tt(f"Deze foto kan ik niet openen ({type(e).__name__}). Stuur een JPEG of PNG.", f"This photo can't be opened ({type(e).__name__}). Send a JPEG or PNG.")) from e
 
         # Bijsnijden naar 9:16 met wat ruimte voor het inzoomen, zonder onnodig grote bewerkingen.
         ruimte = 1.0 + self.ZOOM + 0.02
@@ -276,7 +280,7 @@ class FotoMetTekst:
         t += T_EIND
         self.seconden = t
         self.aantal = round(t * FPS)
-        self.vakken = controleer_veilig(lagen, "De tekst", s.opmerkingen)
+        self.vakken = controleer_veilig(lagen, tt("De tekst", "The text"), s.opmerkingen)
         midden = self.scenes[len(self.scenes) // 2]
         self.midden = round(((midden["in"] or 0.0) + T_IN + 0.3) * FPS)
 
@@ -324,7 +328,7 @@ class Lijstje:
         punten = teksten(invoer, "punten", 2, 6)
         titel = invoer.get("titel")
         if not isinstance(titel, str) or not titel.strip():
-            raise InvoerFout('Een lijstje heeft een "titel" nodig: die staat meteen in beeld en is de cover.')
+            raise InvoerFout(tt('Een lijstje heeft een "titel" nodig: die staat meteen in beeld en is de cover.', 'A list needs a "titel" (title): it shows on screen straight away and is the cover.'))
         vlak = hex_naar_rgb(invoer["vlak"]) if invoer.get("vlak") else s.achtergrond
         kleur = leesbaar(s.tekst, vlak)
         accent = leesbaar(s.accent, vlak, 3.0)
@@ -342,7 +346,7 @@ class Lijstje:
         tekst_b = VEILIG_R - tekst_x
         per_punt = (beschikbaar - tussen * (len(punten) - 1)) / len(punten)
         if per_punt < 70:
-            raise InvoerFout("Te veel punten voor een leesbaar lijstje. Hou het op vijf punten of minder.")
+            raise InvoerFout(tt("Te veel punten voor een leesbaar lijstje. Hou het op vijf punten of minder.", "Too many points for a readable list. Keep it to five points or fewer."))
 
         # Eén lettergrootte voor alle punten: pak de kleinste die alles laat passen.
         grootte = 68
@@ -352,7 +356,7 @@ class Lijstje:
                 break
             grootte -= 2
             if grootte < 40:
-                raise InvoerFout("De punten zijn te lang voor een leesbaar lijstje. Maak ze korter.")
+                raise InvoerFout(tt("De punten zijn te lang voor een leesbaar lijstje. Maak ze korter.", "The points are too long for a readable list. Make them shorter."))
 
         self.punten = []
         genummerd = invoer.get("genummerd", True)
@@ -391,7 +395,7 @@ class Lijstje:
         t += T_EIND
         self.seconden = t
         self.aantal = round(t * FPS)
-        self.vakken = controleer_veilig(alle_lagen, "De tekst", s.opmerkingen)
+        self.vakken = controleer_veilig(alle_lagen, tt("De tekst", "The text"), s.opmerkingen)
 
     @staticmethod
     def _past(tekst: str, pad: str, breedte: int, hoogte: float, grootte: int) -> bool:
@@ -422,5 +426,5 @@ def maak_sjabloon(invoer: dict, map_invoer: Path):
         return FotoMetTekst(invoer, map_invoer)
     if soort == "lijst":
         return Lijstje(invoer)
-    raise InvoerFout('Kies een sjabloon: "tekst", "foto" of "lijst".')
+    raise InvoerFout(tt('Kies een sjabloon: "tekst", "foto" of "lijst".', 'Choose a template: "tekst", "foto" or "lijst".'))
 

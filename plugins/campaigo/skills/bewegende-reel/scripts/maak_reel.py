@@ -18,6 +18,8 @@ import tempfile
 import time
 from pathlib import Path
 
+from taal import tt
+
 
 def meld(uitkomst: dict, code: int) -> None:
     print(json.dumps(uitkomst, ensure_ascii=False))
@@ -51,15 +53,15 @@ def zorg_voor_pakketten() -> None:
     )
     importlib.invalidate_caches()
     if uit.returncode != 0:
-        meld({"ok": False, "soort": "omgeving", "uitleg": f"Pakketten ontbreken en installeren lukt niet: {', '.join(ontbreekt)}."}, 3)
+        meld({"ok": False, "soort": "omgeving", "uitleg": tt(f"Pakketten ontbreken en installeren lukt niet: {', '.join(ontbreekt)}.", f"Packages are missing, and installing them didn't work: {', '.join(ontbreekt)}.")}, 3)
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Maakt een Reel als MP4 uit een JSON-invoer.")
-    p.add_argument("invoer", help="pad naar invoer.json")
-    p.add_argument("--uit", default="reel.mp4", help="pad van de MP4")
-    p.add_argument("--stills", help="map voor begin-, midden- en eindbeeld als PNG")
-    p.add_argument("--alleen-stills", action="store_true", help="maak alleen de plaatjes, geen video")
+    p = argparse.ArgumentParser(description=tt("Maakt een Reel als MP4 uit een JSON-invoer.", "Makes a Reel as an MP4 from a JSON input."))
+    p.add_argument("invoer", help=tt("pad naar invoer.json", "path to invoer.json"))
+    p.add_argument("--uit", default="reel.mp4", help=tt("pad van de MP4", "path of the MP4"))
+    p.add_argument("--stills", help=tt("map voor begin-, midden- en eindbeeld als PNG", "folder for the start, middle and end frames as PNG"))
+    p.add_argument("--alleen-stills", action="store_true", help=tt("maak alleen de plaatjes, geen video", "only make the stills, no video"))
     args = p.parse_args()
 
     zorg_voor_pakketten()
@@ -74,7 +76,7 @@ def main() -> None:
         try:
             invoer = json.loads(pad_invoer.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as e:
-            raise motor.InvoerFout(f"Het invoerbestand kan ik niet lezen: {e}") from e
+            raise motor.InvoerFout(tt(f"Het invoerbestand kan ik niet lezen: {e}", f"I can't read the input file: {e}")) from e
         reel = sjablonen.maak_sjabloon(invoer, pad_invoer.resolve().parent)
 
         if args.stills:
@@ -95,7 +97,7 @@ def main() -> None:
                 frame = reel.frame(i)
                 encoder.schrijf(frame)
                 if i % (motor.FPS * 2) == 0:
-                    print(f"  {i}/{reel.aantal} beelden", file=sys.stderr, flush=True)
+                    print(tt(f"  {i}/{reel.aantal} beelden", f"  {i}/{reel.aantal} frames"), file=sys.stderr, flush=True)
         finally:
             encoder.sluit()
         rekentijd = time.perf_counter() - start

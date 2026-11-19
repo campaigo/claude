@@ -13,10 +13,12 @@
  */
 (function () {
   "use strict";
+  const EN = typeof document !== "undefined" && document.documentElement.lang === "en";
+  function tt(nl, en) { return EN ? en : nl; }
   const qs = new URLSearchParams(location.search);
   const RENDER = qs.has("render");
   const stage = document.getElementById("stage");
-  if (!stage) throw new Error('reel.html mist <div id="stage"></div>');
+  if (!stage) throw new Error(tt('reel.html mist <div id="stage"></div>', 'reel.html is missing <div id="stage"></div>'));
   if (RENDER) document.documentElement.classList.add("render");
 
   // ---------- rekenen ----------
@@ -141,7 +143,7 @@
   function rgb(hex) {
     let h = String(hex).trim().replace(/^#/, "");
     if (h.length === 3) h = h.split("").map((c) => c + c).join("");
-    if (!/^[0-9a-f]{6}$/i.test(h)) throw new Error(`De kleur "${hex}" begrijp ik niet. Gebruik een kleurcode zoals #1F3A3D.`);
+    if (!/^[0-9a-f]{6}$/i.test(h)) throw new Error(tt(`De kleur "${hex}" begrijp ik niet. Gebruik een kleurcode zoals #1F3A3D.`, `I don't understand the colour "${hex}". Use a colour code such as #1F3A3D.`));
     return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
   }
   const hex = ([r, g, b]) => "#" + [r, g, b].map((c) => Math.round(clamp(c, 0, 255)).toString(16).padStart(2, "0")).join("");
@@ -201,7 +203,7 @@
       if (typeof lt === "string") {
         const naam = INGEBOUWD[lt.trim().toLowerCase()];
         if (naam) MERK.lettertype = naam;
-        else { MERK.lettertype = "Outfit"; meldingen.push(`Het lettertype "${lt}" staat niet in de studio; Outfit gebruikt. Zet het als bestand in merk/fonts en geef het op met { naam, bestanden }.`); }
+        else { MERK.lettertype = "Outfit"; meldingen.push(tt(`Het lettertype "${lt}" staat niet in de studio; Outfit gebruikt. Zet het als bestand in merk/fonts en geef het op met { naam, bestanden }.`, `The font "${lt}" isn't in the studio, so Outfit is used. Add it as a file in merk/fonts and set it with { naam, bestanden }.`)); }
       } else if (lt.naam && lt.bestanden) {
         let css = "";
         // sleutels: "700" (vet), "500" (normaal), en met een i erachter cursief: "700i", "500i"
@@ -258,7 +260,7 @@
       const src = `export/frames/${c.naam}/${String(n).padStart(4, "0")}.jpg`;
       if (c.img.getAttribute("src") !== src) {
         c.img.setAttribute("src", src);
-        laden.push(c.img.decode().catch(() => meldingen.push(`Beeld ${src} laadt niet.`)));
+        laden.push(c.img.decode().catch(() => meldingen.push(tt(`Beeld ${src} laadt niet.`, `Image ${src} doesn't load.`))));
       }
     } else {
       const doel = c.start + clamp(lokaal * c.snelheid, 0, c.duur - 0.05);
@@ -396,12 +398,12 @@
         try {
           const m = await (await fetch(merkBron)).json();
           zetMerk({ ...m, ...(merkAanvulling || {}) });
-        } catch (e) { meldingen.push(`merk.json laadt niet: ${e.message}`); zetMerk({}); }
+        } catch (e) { meldingen.push(tt(`merk.json laadt niet: ${e.message}`, `merk.json doesn't load: ${e.message}`)); zetMerk({}); }
       } else if (!MERK.accentOp) zetMerk({});
       await Promise.all(["400", "500", "700", "800"].map((w) => document.fonts.load(`${w} 100px "${MERK.lettertype}"`)));
       await document.fonts.ready;
       for (const b of bouwers) await b();
-      await Promise.all([...stage.querySelectorAll("img")].filter((i) => i.getAttribute("src")).map((i) => i.decode().catch(() => meldingen.push(`Beeld ${i.getAttribute("src")} laadt niet.`))));
+      await Promise.all([...stage.querySelectorAll("img")].filter((i) => i.getAttribute("src")).map((i) => i.decode().catch(() => meldingen.push(tt(`Beeld ${i.getAttribute("src")} laadt niet.`, `Image ${i.getAttribute("src")} doesn't load.`)))));
       window.__T__ = T;
       window.__MUZIEK__ = { T, bpm: BPM, secties, cues, ...muziekOpties };
       window.__OMSLAG__ = omslagT ?? Math.min(1.5, T / 2);

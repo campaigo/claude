@@ -17,6 +17,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from taal import tt
+
 BREEDTE, HOOGTE = 1080, 1920
 FPS = 30
 
@@ -65,7 +67,7 @@ def hex_naar_rgb(waarde: str) -> tuple[int, int, int]:
     if len(h) == 3:
         h = "".join(c * 2 for c in h)
     if not re.fullmatch(r"[0-9a-fA-F]{6}", h):
-        raise InvoerFout(f'De kleur "{waarde}" begrijp ik niet. Gebruik een kleurcode zoals #1F3A3D.')
+        raise InvoerFout(tt(f'De kleur "{waarde}" begrijp ik niet. Gebruik een kleurcode zoals #1F3A3D.', f"I don't understand the colour '{waarde}'. Use a colour code such as #1F3A3D."))
     return int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
 
 
@@ -99,7 +101,7 @@ def kies_lettertype(naam: str | None) -> tuple[str, str, str | None]:
         pad = Path(str(naam))
         if pad.suffix.lower() in (".ttf", ".otf"):
             if not pad.is_file():
-                raise InvoerFout(f"Het lettertypebestand {naam} is niet gevonden.")
+                raise InvoerFout(tt(f"Het lettertypebestand {naam} is niet gevonden.", f"The font file {naam} wasn't found."))
             return str(pad), str(pad), None
         bekend = LETTERTYPEN.get(str(naam).strip().lower())
         if bekend:
@@ -108,7 +110,7 @@ def kies_lettertype(naam: str | None) -> tuple[str, str, str | None]:
         return (
             str(FONTS_MAP / vet),
             str(FONTS_MAP / normaal),
-            f'Lettertype "{naam}" zit niet in deze skill; Outfit gebruikt. Stuur een TTF-bestand mee om het echte lettertype te gebruiken.',
+            tt(f'Lettertype "{naam}" zit niet in deze skill; Outfit gebruikt. Stuur een TTF-bestand mee om het echte lettertype te gebruiken.', f"The font '{naam}' isn't in this skill, so Outfit is used. Send a TTF file to use the real font."),
         )
     vet, normaal = LETTERTYPEN["outfit"]
     return str(FONTS_MAP / vet), str(FONTS_MAP / normaal), None
@@ -211,7 +213,7 @@ def zet_tekst(tekst: str, pad: str, max_b: int, max_h: int, groot: int, klein: i
     """Zoekt de grootste letter waarbij de tekst binnen het vak past."""
     tekst = " ".join(str(tekst).split())
     if not tekst:
-        raise InvoerFout("Er is een lege tekst meegegeven.")
+        raise InvoerFout(tt("Er is een lege tekst meegegeven.", "The text is empty."))
     for s in range(groot, klein - 1, -2):
         f = font(pad, s)
         regels = _afbreken(tekst, pad, s, max_b)
@@ -222,7 +224,7 @@ def zet_tekst(tekst: str, pad: str, max_b: int, max_h: int, groot: int, klein: i
         if h <= max_h:
             return Tekstzet(regels, s, max(_breedte(r, pad, s) for r in regels), h, pad)
     begin = tekst if len(tekst) <= 60 else tekst[:57] + "..."
-    raise InvoerFout(f'Deze tekst past niet leesbaar in beeld: "{begin}". Maak hem korter.')
+    raise InvoerFout(tt(f'Deze tekst past niet leesbaar in beeld: "{begin}". Maak hem korter.', f"This text doesn't fit legibly on screen: '{begin}'. Make it shorter."))
 
 
 @dataclass
@@ -244,7 +246,7 @@ def bijgesneden(alpha: np.ndarray, x: int, y: int) -> tuple[np.ndarray, int, int
     rijen = np.flatnonzero(alpha.any(axis=1))
     kol = np.flatnonzero(alpha.any(axis=0))
     if rijen.size == 0:
-        raise VideoFout("Lege tekstlaag: het lettertype tekent deze tekst niet.")
+        raise VideoFout(tt("Lege tekstlaag: het lettertype tekent deze tekst niet.", "Empty text layer: the font doesn't draw this text."))
     y0, y1, x0, x1 = rijen[0], rijen[-1] + 1, kol[0], kol[-1] + 1
     return alpha[y0:y1, x0:x1], x + int(x0), y + int(y0)
 
@@ -313,7 +315,7 @@ def controleer_veilig(lagen: list[Laag], wat: str, opmerkingen: list[str]) -> li
         l, b, r, o = laag.vak
         vakken.append([l, b, r, o])
         if l < VEILIG_L or r > VEILIG_R or b < VEILIG_B or o > VEILIG_O:
-            raise VideoFout(f"{wat} valt buiten de veilige zone ({l}, {b}, {r}, {o}).")
+            raise VideoFout(tt(f"{wat} valt buiten de veilige zone ({l}, {b}, {r}, {o}).", f"{wat} falls outside the safe zone ({l}, {b}, {r}, {o})."))
     return vakken
 
 
@@ -376,10 +378,12 @@ def vind_ffmpeg() -> tuple[str, str]:
         gevonden = _uit_imageio()
         if gevonden:
             return gevonden, "imageio-ffmpeg (via pip)"
-    raise VideoFout(
+    raise VideoFout(tt(
         "Hier kan ik geen MP4 maken: er is geen videoprogramma (ffmpeg) en installeren lukt niet, "
-        "waarschijnlijk omdat netwerktoegang voor pakketten uit staat."
-    )
+        "waarschijnlijk omdat netwerktoegang voor pakketten uit staat.",
+        "I can't make an MP4 here: there's no video program (ffmpeg), and installing one didn't work, "
+        "probably because network access for packages is turned off."
+    ))
 
 
 # Video schrijven -----------------------------------------------------------
@@ -412,7 +416,7 @@ class Encoder:
         try:
             self.proces.stdin.write(frame.tobytes())
         except (BrokenPipeError, OSError) as e:
-            raise VideoFout(self._melding(f"ffmpeg stopte tijdens het maken van de video ({e}).")) from e
+            raise VideoFout(self._melding(tt(f"ffmpeg stopte tijdens het maken van de video ({e}).", f"ffmpeg stopped while making the video ({e})."))) from e
 
     def _melding(self, begin: str) -> str:
         self.foutlog.seek(0)
@@ -426,7 +430,7 @@ class Encoder:
         except OSError:
             pass
         if self.proces.wait() != 0:
-            raise VideoFout(self._melding("ffmpeg gaf een fout."))
+            raise VideoFout(self._melding(tt("ffmpeg gaf een fout.", "ffmpeg reported an error.")))
         self.foutlog.close()
 
 
@@ -478,7 +482,7 @@ def controleer_bestand(pad: str, exe: str, seconden: float) -> tuple[dict, list[
     namen = [b[0] for b in boxen]
     moov_voor = "moov" in namen and "mdat" in namen and namen.index("moov") < namen.index("mdat")
     if not moov_voor:
-        fouten.append("moov staat niet vooraan in het bestand")
+        fouten.append(tt("moov staat niet vooraan in het bestand", "the moov box isn't at the start of the file"))
     binnen: list[str] = []
     for naam, start, grootte in boxen:
         if naam == "moov":
@@ -487,7 +491,7 @@ def controleer_bestand(pad: str, exe: str, seconden: float) -> tuple[dict, list[
                 data = f.read(grootte)
             _kijk_in_boxen(data, 8, grootte, binnen)
     if "edts" in binnen:
-        fouten.append("bestand bevat een edit list (Meta wil die niet)")
+        fouten.append(tt("bestand bevat een edit list (Meta wil die niet)", "the file has an edit list (Meta doesn't want one)"))
 
     uit = subprocess.run([exe, "-hide_banner", "-i", pad], capture_output=True, text=True, errors="replace")
     info = uit.stderr
@@ -496,30 +500,30 @@ def controleer_bestand(pad: str, exe: str, seconden: float) -> tuple[dict, list[
     audio = re.search(r"Audio: (\w+).*?(\d+) Hz, (\w+)", info)
     duur = re.search(r"Duration: (\d+):(\d+):([\d.]+)", info)
     if not video:
-        fouten.append("geen videospoor gevonden")
+        fouten.append(tt("geen videospoor gevonden", "no video track found"))
     else:
         if video.group(1) != "h264":
-            fouten.append(f"codec is {video.group(1)}, niet h264")
+            fouten.append(tt(f"codec is {video.group(1)}, niet h264", f"codec is {video.group(1)}, not h264"))
         if video.group(2) != "yuv420p":
-            fouten.append(f"beeldopslag is {video.group(2)}, niet yuv420p")
+            fouten.append(tt(f"beeldopslag is {video.group(2)}, niet yuv420p", f"pixel format is {video.group(2)}, not yuv420p"))
         if (int(video.group(4)), int(video.group(5))) != (BREEDTE, HOOGTE):
-            fouten.append(f"formaat is {video.group(4)}x{video.group(5)}")
+            fouten.append(tt(f"formaat is {video.group(4)}x{video.group(5)}", f"size is {video.group(4)}x{video.group(5)}"))
     if not fps or abs(float(fps.group(1)) - FPS) > 0.01:
-        fouten.append("beeldsnelheid is niet 30 fps")
+        fouten.append(tt("beeldsnelheid is niet 30 fps", "frame rate isn't 30 fps"))
     if not audio or audio.group(1) != "aac":
-        fouten.append("geen AAC-geluidsspoor")
+        fouten.append(tt("geen AAC-geluidsspoor", "no AAC audio track"))
     elif int(audio.group(2)) > 48000:
-        fouten.append("geluid boven 48 kHz")
+        fouten.append(tt("geluid boven 48 kHz", "audio above 48 kHz"))
     werkelijk = None
     if duur:
         werkelijk = int(duur.group(1)) * 3600 + int(duur.group(2)) * 60 + float(duur.group(3))
         if abs(werkelijk - seconden) > 0.15:
-            fouten.append(f"duur is {werkelijk:.2f} s, verwacht {seconden:.2f} s")
+            fouten.append(tt(f"duur is {werkelijk:.2f} s, verwacht {seconden:.2f} s", f"length is {werkelijk:.2f} s, expected {seconden:.2f} s"))
         if werkelijk < 3:
-            fouten.append("korter dan 3 seconden (minimum van Instagram)")
+            fouten.append(tt("korter dan 3 seconden (minimum van Instagram)", "shorter than 3 seconds (Instagram's minimum)"))
     mb = os.path.getsize(pad) / 1_000_000
     if mb > 30:
-        fouten.append(f"bestand is {mb:.1f} MB, downloaden in claude.ai kan tot 30 MB")
+        fouten.append(tt(f"bestand is {mb:.1f} MB, downloaden in claude.ai kan tot 30 MB", f"file is {mb:.1f} MB; downloading in claude.ai works up to 30 MB"))
     samenvatting = {
         "codec": video.group(1) if video else None,
         "pixelformaat": video.group(2) if video else None,
