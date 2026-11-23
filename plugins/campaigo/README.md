@@ -33,6 +33,23 @@ Je hebt een account bij [Campaigo](https://campaigo.nl) nodig, met je profession
    - "Zet mijn week klaar."
    - "Wat werkte de afgelopen maand?"
 
+## Zo gebruik je de skills
+
+Je hoeft niets te onthouden: zeg wat je wilt, dan kiest Claude zelf de goede skill. Wil je er zelf een kiezen? Typ `/` in het gesprek en kies de skill uit de lijst. Ze beginnen allemaal met `campaigo:`.
+
+| Skill | Typ | Zeg bijvoorbeeld |
+|---|---|---|
+| Post maken | `/campaigo:post-maken` | "Ik ben zaterdag extra open tot vijf. Maak daar een post van." |
+| Week plannen | `/campaigo:week-plannen` | "Zet mijn week klaar." |
+| Mijn stijl | `/campaigo:mijn-stijl` | "Leer mijn stijl." |
+| Wat werkte | `/campaigo:wat-werkte` | "Wat werkte de afgelopen maand?" |
+| Oude posts opnieuw | `/campaigo:oude-toppers` | "Zet een post die goed liep opnieuw klaar." |
+| Inspiratie | `/campaigo:inspiratie` | "Dit account doet iets leuks. Maak er mijn eigen versie van." |
+| Bewegende Reel | `/campaigo:bewegende-reel` | "Maak een bewegende Reel van deze tekst." |
+| Reel-studio | `/campaigo:reel-studio` | "Maak een Reel in mijn eigen bewegingsstijl." (alleen in het tabblad Code) |
+
+Typ je na het commando niets, dan vraagt Claude wat je wilt. Er gaat in elke skill niets online zonder jouw ja.
+
 Wil je later bewegende Reels? Vraag er in het gesprek om, dan zegt Claude welke instelling in Claude daarvoor aan moet.
 
 Lukt het koppelen niet, of zie je ertegen op? We koppelen ook graag samen met je: bel 06 23 51 07 10 of mail hallo@campaigo.nl.
